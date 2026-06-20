@@ -1,0 +1,9 @@
+# Tüm istekleri front controller'a (index.php) yönlendir; var olan dosyalar
+# (assets gibi) doğrudan servis edilir.
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteRule ^ index.php [L]
