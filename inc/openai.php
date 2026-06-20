@@ -66,7 +66,9 @@ function openai_generate_content(string $type, string $topic, string $instructio
         ],
         'response_format' => ['type' => 'json_object'],
         'temperature'     => 0.7,
-        'max_tokens'      => 2000,
+        // Doyurucu bir Markdown gövdesi 2000 token'ı kolayca aşar; sınıra
+        // takılırsa JSON ortadan kesilip geçersiz olur. Geniş tutuyoruz.
+        'max_tokens'      => 4096,
     ], JSON_UNESCAPED_UNICODE);
 
     $ch = curl_init(OPENAI_BASE . '/chat/completions');
@@ -96,11 +98,17 @@ function openai_generate_content(string $type, string $topic, string $instructio
 
     $data    = json_decode($resp, true);
     $content = $data['choices'][0]['message']['content'] ?? null;
+    $finish  = $data['choices'][0]['finish_reason'] ?? null;
     if (!$content) {
         return ['ok' => false, 'error' => 'OpenAI boş yanıt döndü.'];
     }
     $parsed = json_decode($content, true);
     if (!is_array($parsed)) {
+        // json_object modunda geçersiz JSON'ın tek nedeni çıktının token
+        // sınırında kesilmesidir; bunu ayrı ve anlaşılır bir mesajla bildir.
+        if ($finish === 'length') {
+            return ['ok' => false, 'error' => 'İçerik çok uzun olduğu için yarıda kesildi (token sınırı). Daha kısa bir konu deneyin veya max_tokens sınırını artırın.'];
+        }
         return ['ok' => false, 'error' => 'OpenAI geçerli JSON döndürmedi.'];
     }
     $title = trim($parsed['title'] ?? '');
