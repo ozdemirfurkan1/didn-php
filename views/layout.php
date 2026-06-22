@@ -46,6 +46,11 @@ declare(strict_types=1);
     <footer class="site-footer">
         <div class="container">
             <p>DiDn — İngilizce ↔ Türkçe Sözlük</p>
+            <p class="footer-credit">
+                Sözlük verileri <a href="https://www.wiktionary.org/" target="_blank" rel="noopener">Vikisözlük (Wiktionary)</a>
+                kaynaklı olup <a href="https://kaikki.org/" target="_blank" rel="noopener">kaikki.org</a> üzerinden derlenmiştir.
+                <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a> lisansı altında kullanılmaktadır.
+            </p>
         </div>
     </footer>
 </body>
