@@ -256,7 +256,8 @@ function is_lookup_error(array $result): bool
 // (özel isim/kısaltma elenir). Birkaç deneme yapar.
 function pick_random_word_for_day(): ?array
 {
-    for ($i = 0; $i < 8; $i++) {
+    $fallback = null;
+    for ($i = 0; $i < 14; $i++) {
         $stmt = db()->query(
             "SELECT word FROM english WHERE BINARY word REGEXP '^[a-z]{3,15}$' ORDER BY RAND() LIMIT 1"
         );
@@ -265,11 +266,17 @@ function pick_random_word_for_day(): ?array
             continue;
         }
         $res = lookup_word($w, 'en-tr');
-        if (!is_lookup_error($res) && !empty($res['translations'])) {
-            return $res;
+        if (is_lookup_error($res) || empty($res['translations'])) {
+            continue;
+        }
+        if ($fallback === null) {
+            $fallback = $res; // geçerli ilk adayı yedek tut
+        }
+        if (!empty($res['audioUrl'])) {
+            return $res; // sesi olan kelimeyi tercih et
         }
     }
-    return null;
+    return $fallback;
 }
 
 // Günün kelimesi: gün içinde değişmez, her gün yenilenir. Seçilen kelime
@@ -278,8 +285,10 @@ function pick_random_word_for_day(): ?array
 function get_word_of_the_day(): ?array
 {
     $today = date('Y-m-d');
+    // Önbellek anahtarına sürüm ekli; payload yapısı değişince eski kayıt otomatik yenilenir.
+    $cacheKey = 'word_of_the_day_v2';
     try {
-        $stored = function_exists('get_setting') ? get_setting('word_of_the_day') : null;
+        $stored = function_exists('get_setting') ? get_setting($cacheKey) : null;
         if ($stored) {
             $p = json_decode($stored, true);
             if (is_array($p) && ($p['date'] ?? null) === $today && !empty($p['word'])) {
@@ -297,8 +306,10 @@ function get_word_of_the_day(): ?array
             'audioUrl'     => $res['audioUrl'] ?? null,
             'translations' => array_slice($res['translations'], 0, 6),
             'meaning'      => $res['meanings'][0] ?? null,
+            'synonyms'     => array_slice($res['synonyms'] ?? [], 0, 8),
+            'antonyms'     => array_slice($res['antonyms'] ?? [], 0, 8),
         ];
-        set_setting('word_of_the_day', json_encode(['date' => $today, 'word' => $payload], JSON_UNESCAPED_UNICODE));
+        set_setting($cacheKey, json_encode(['date' => $today, 'word' => $payload], JSON_UNESCAPED_UNICODE));
         return $payload;
     } catch (Throwable $e) {
         return null;

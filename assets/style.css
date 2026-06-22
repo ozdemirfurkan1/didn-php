@@ -81,15 +81,22 @@ a:hover { text-decoration: underline; }
 
 /* Hero / search */
 .wotd { text-align: left; }
-.wotd-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); margin-bottom: 10px; }
-.wotd-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.wotd-word { font-size: 26px; font-weight: 700; color: var(--fg); letter-spacing: -.01em; text-decoration: none; }
-.wotd-word:hover { color: var(--primary); }
-.wotd-phonetic { color: var(--muted); font-size: 15px; }
-.wotd-head audio { height: 32px; }
-.wotd-trans { color: var(--fg); margin-top: 10px; font-size: 16px; font-weight: 500; }
-.wotd-def { color: var(--muted); margin: 10px 0 0; font-size: 14px; line-height: 1.55; }
-.wotd-ex { color: var(--muted); font-style: italic; margin: 8px 0 0; font-size: 14px; }
+.wotd-label { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); margin-bottom: 12px; }
+.wotd-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.wotd-word { font-size: 40px; font-weight: 800; color: var(--fg); letter-spacing: -.02em; line-height: 1.1; }
+.wotd-phonetic { color: var(--muted); font-size: 17px; }
+.wotd-audio { height: 34px; }
+.wotd-trans { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+.wotd-en { font-size: 20px; font-weight: 700; color: var(--fg); }
+.wotd-eq { color: var(--subtle); font-size: 18px; }
+.wotd-tr { font-size: 20px; font-weight: 600; color: var(--primary); }
+.wotd-row { margin-top: 14px; }
+.wotd-row-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--subtle); margin-bottom: 6px; }
+.wotd-def { color: var(--fg); margin: 0; font-size: 15px; line-height: 1.6; }
+.wotd-ex { display: block; color: var(--muted); font-style: italic; margin-top: 6px; font-size: 14px; }
+.wotd-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.wotd-chips .chip { text-decoration: none; color: var(--fg); }
+.wotd-chips .chip:hover { border-color: var(--primary); color: var(--primary); }
 
 .hero { text-align: center; padding: 40px 0 16px; }
 .hero h1 { font-size: 32px; margin: 0 0 8px; letter-spacing: -.02em; }
