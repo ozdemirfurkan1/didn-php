@@ -23,6 +23,7 @@ declare(strict_types=1);
             <nav class="nav">
                 <a href="/">Sözlük</a>
                 <a href="/gramer">Gramer</a>
+                <a href="/es/grammar">Spanish</a>
                 <a href="/blog">Blog</a>
                 <a href="/rehber">Rehberler</a>
                 <a href="/haber">Haberler</a>

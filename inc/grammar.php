@@ -1,35 +1,92 @@
 <?php
-// Gramer dersleri — data/grammar.json'dan yüklenir (Next.js lib/grammar'dan
-// aktarıldı). Sıra ve kategori gruplaması orijinaldeki gibidir.
+// Gramer dersleri — dil "track"lerine göre data/*.json'dan yüklenir.
+// Her track: hangi veri dosyası, örnek cümlede öğrenilen dil (target) ve
+// açıklama/çeviri dili (native), rota öneki ve görünüm etiketleri.
 
 declare(strict_types=1);
 
-function all_lessons(): array
+// Tüm gramer track'leri. Yeni bir dil eklemek için buraya bir kayıt ve
+// ona ait data/grammar-XX.json dosyasını eklemek yeterli.
+function grammar_tracks(): array
 {
-    static $lessons = null;
-    if ($lessons === null) {
-        $json = @file_get_contents(__DIR__ . '/../data/grammar.json');
-        $lessons = $json ? (json_decode($json, true) ?: []) : [];
-        // Orijinal (lib/grammar/index.ts) sırası.
-        $order = [
-            'present-simple', 'present-continuous', 'past-simple', 'past-continuous',
-            'present-perfect', 'past-perfect', 'future-will-going-to',
-            'articles', 'pronouns', 'plurals-quantifiers', 'there-is-there-are',
-            'prepositions-time-place', 'question-words',
-            'can-could', 'must-have-to', 'should',
-            'comparatives-superlatives',
-            'conditionals', 'relative-clauses', 'reported-speech',
-            'gerunds-infinitives', 'passive-voice',
-        ];
-        $rank = array_flip($order);
-        usort($lessons, fn($a, $b) => ($rank[$a['slug']] ?? 999) <=> ($rank[$b['slug']] ?? 999));
-    }
-    return $lessons;
+    return [
+        // Türkçe konuşan → İngilizce öğrenir (mevcut, /gramer).
+        'en' => [
+            'key'    => 'en',
+            'file'   => 'grammar.json',
+            'target' => 'en', // örnek cümlede öğrenilen dil
+            'native' => 'tr', // açıklama/çeviri dili
+            'base'   => '/gramer',
+            // Orijinal (lib/grammar/index.ts) sırası.
+            'order'  => [
+                'present-simple', 'present-continuous', 'past-simple', 'past-continuous',
+                'present-perfect', 'past-perfect', 'future-will-going-to',
+                'articles', 'pronouns', 'plurals-quantifiers', 'there-is-there-are',
+                'prepositions-time-place', 'question-words',
+                'can-could', 'must-have-to', 'should',
+                'comparatives-superlatives',
+                'conditionals', 'relative-clauses', 'reported-speech',
+                'gerunds-infinitives', 'passive-voice',
+            ],
+            'labels' => [
+                'indexTitle' => 'Gramer Konuları',
+                'indexSub'   => 'İngilizce gramer konuları — sade Türkçe anlatım, kurallar, örnek cümleler ve sık yapılan hatalarla.',
+                'pageIndex'  => 'Gramer Konuları — DiDn',
+                'back'       => '← Gramer Konuları',
+                'structure'  => 'Yapı:',
+                'mistakes'   => 'Sık yapılan hatalar',
+                'related'    => 'İlgili konular',
+            ],
+        ],
+        // İngilizce konuşan → İspanyolca öğrenir (yeni, /es/grammar).
+        'es' => [
+            'key'    => 'es',
+            'file'   => 'grammar-es.json',
+            'target' => 'es', // örnek cümlede öğrenilen dil (İspanyolca)
+            'native' => 'en', // açıklama/çeviri dili (İngilizce)
+            'base'   => '/es/grammar',
+            'order'  => [], // dosya sırası kullanılır
+            'labels' => [
+                'indexTitle' => 'Spanish Grammar',
+                'indexSub'   => 'Spanish grammar for English speakers — clear explanations, rules, example sentences and common mistakes.',
+                'pageIndex'  => 'Spanish Grammar — DiDn',
+                'back'       => '← Spanish Grammar',
+                'structure'  => 'Structure:',
+                'mistakes'   => 'Common mistakes',
+                'related'    => 'Related topics',
+            ],
+        ],
+    ];
 }
 
-function get_lesson(string $slug): ?array
+// Bir track'in tanımını döndürür (yoksa null).
+function grammar_track(string $key): ?array
 {
-    foreach (all_lessons() as $lesson) {
+    return grammar_tracks()[$key] ?? null;
+}
+
+function all_lessons(string $track = 'en'): array
+{
+    static $cache = [];
+    if (!array_key_exists($track, $cache)) {
+        $t = grammar_track($track);
+        $lessons = [];
+        if ($t) {
+            $json = @file_get_contents(__DIR__ . '/../data/' . $t['file']);
+            $lessons = $json ? (json_decode($json, true) ?: []) : [];
+            if (!empty($t['order'])) {
+                $rank = array_flip($t['order']);
+                usort($lessons, fn($a, $b) => ($rank[$a['slug']] ?? 999) <=> ($rank[$b['slug']] ?? 999));
+            }
+        }
+        $cache[$track] = $lessons;
+    }
+    return $cache[$track];
+}
+
+function get_lesson(string $slug, string $track = 'en'): ?array
+{
+    foreach (all_lessons($track) as $lesson) {
         if ($lesson['slug'] === $slug) {
             return $lesson;
         }
@@ -38,10 +95,10 @@ function get_lesson(string $slug): ?array
 }
 
 // Dersleri kategoriye göre gruplar (ilk görülme sırasıyla).
-function lessons_by_category(): array
+function lessons_by_category(string $track = 'en'): array
 {
     $groups = [];
-    foreach (all_lessons() as $lesson) {
+    foreach (all_lessons($track) as $lesson) {
         $groups[$lesson['category']][] = $lesson;
     }
     return $groups;

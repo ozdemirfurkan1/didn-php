@@ -1,11 +1,14 @@
 <?php
-// Gramer konuları listesi.
+// Gramer konuları listesi (track'e göre).
 declare(strict_types=1);
 /** @var array $groups */
+/** @var array $t  Track tanımı (base, labels...) */
+$lbl  = $t['labels'];
+$base = $t['base'];
 ?>
 <header class="page-head">
-    <h1>Gramer Konuları</h1>
-    <p class="page-sub">İngilizce gramer konuları — sade Türkçe anlatım, kurallar, örnek cümleler ve sık yapılan hatalarla.</p>
+    <h1><?= e($lbl['indexTitle']) ?></h1>
+    <p class="page-sub"><?= e($lbl['indexSub']) ?></p>
 </header>
 
 <?php foreach ($groups as $category => $lessons): ?>
@@ -13,7 +16,7 @@ declare(strict_types=1);
         <h2 class="cat-title"><span class="cat-bar"></span><?= e($category) ?></h2>
         <div class="grammar-grid">
             <?php foreach ($lessons as $lesson): ?>
-                <a class="grammar-card card" href="/gramer/<?= e($lesson['slug']) ?>">
+                <a class="grammar-card card" href="<?= e($base) ?>/<?= e($lesson['slug']) ?>">
                     <div class="grammar-card-top">
                         <h3><?= e($lesson['title']) ?></h3>
                         <span class="level-badge level-<?= e($lesson['level']) ?>"><?= e($lesson['level']) ?></span>

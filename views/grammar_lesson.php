@@ -1,9 +1,14 @@
 <?php
-// Tek gramer dersi.
+// Tek gramer dersi (track'e göre).
 declare(strict_types=1);
 /** @var array $lesson */
+/** @var array $t  Track tanımı (base, target, native, labels...) */
+$lbl    = $t['labels'];
+$base   = $t['base'];
+$target = $t['target']; // örnek cümlede öğrenilen dil alanı
+$native = $t['native']; // örnek cümlede çeviri dili alanı
 ?>
-<a href="/gramer" class="back-link">← Gramer Konuları</a>
+<a href="<?= e($base) ?>" class="back-link"><?= e($lbl['back']) ?></a>
 
 <article class="lesson">
     <header class="lesson-head card">
@@ -16,7 +21,7 @@ declare(strict_types=1);
             <p class="lesson-intro"><?= e($p) ?></p>
         <?php endforeach; ?>
         <?php if (!empty($lesson['formula'])): ?>
-            <p class="formula"><strong>Yapı:</strong> <?= e($lesson['formula']) ?></p>
+            <p class="formula"><strong><?= e($lbl['structure']) ?></strong> <?= e($lesson['formula']) ?></p>
         <?php endif; ?>
     </header>
 
@@ -37,8 +42,8 @@ declare(strict_types=1);
                 <ul class="examples">
                     <?php foreach ($section['examples'] as $ex): ?>
                         <li>
-                            <span class="ex-en"><?= e($ex['en']) ?></span>
-                            <span class="ex-tr"><?= e($ex['tr']) ?></span>
+                            <span class="ex-en"><?= e($ex[$target] ?? '') ?></span>
+                            <span class="ex-tr"><?= e($ex[$native] ?? '') ?></span>
                             <?php if (!empty($ex['note'])): ?>
                                 <span class="ex-note"><?= e($ex['note']) ?></span>
                             <?php endif; ?>
@@ -51,7 +56,7 @@ declare(strict_types=1);
 
     <?php if (!empty($lesson['mistakes'])): ?>
         <section class="lesson-section card">
-            <h2>Sık yapılan hatalar</h2>
+            <h2><?= e($lbl['mistakes']) ?></h2>
             <ul class="mistakes">
                 <?php foreach ($lesson['mistakes'] as $m): ?>
                     <li>
@@ -67,14 +72,14 @@ declare(strict_types=1);
     <?php endif; ?>
 
     <?php
-    $related = array_filter(array_map('get_lesson', $lesson['related'] ?? []));
+    $related = array_filter(array_map(fn($s) => get_lesson($s, $t['key']), $lesson['related'] ?? []));
     ?>
     <?php if ($related): ?>
         <section class="lesson-section card">
-            <h2>İlgili konular</h2>
+            <h2><?= e($lbl['related']) ?></h2>
             <div class="chips">
                 <?php foreach ($related as $r): ?>
-                    <a class="chip" href="/gramer/<?= e($r['slug']) ?>"><?= e($r['title']) ?></a>
+                    <a class="chip" href="<?= e($base) ?>/<?= e($r['slug']) ?>"><?= e($r['title']) ?></a>
                 <?php endforeach; ?>
             </div>
         </section>

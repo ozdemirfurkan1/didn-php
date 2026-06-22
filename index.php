@@ -374,18 +374,40 @@ if (($segments[0] ?? '') === 'admin') {
     exit;
 }
 
-// Gramer konuları listesi
-if ($uri === '/gramer') {
-    render('grammar_index', ['groups' => lessons_by_category(), 'title' => 'Gramer Konuları — DiDn']);
-    exit;
-}
-
-// Tek gramer dersi: /gramer/{slug}
-if (count($segments) === 2 && $segments[0] === 'gramer') {
-    $lesson = get_lesson($segments[1]);
-    if ($lesson) {
-        render('grammar_lesson', ['lesson' => $lesson, 'title' => $lesson['title'] . ' — DiDn']);
+// Gramer rotaları (track'lere göre). Mevcut /gramer (Türkçe→İngilizce) ve
+// /es/grammar (İngilizce→İspanyolca). Yeni dil eklemek için grammar_tracks()
+// içine bir kayıt + buraya bir eşleme yeterli.
+$grammarRoutes = [
+    'gramer'    => 'en', // /gramer , /gramer/{slug}
+    'es/grammar' => 'es', // /es/grammar , /es/grammar/{slug}
+];
+foreach ($grammarRoutes as $path => $trackKey) {
+    $pathSegs = explode('/', $path);
+    $depth    = count($pathSegs);
+    if (array_slice($segments, 0, $depth) !== $pathSegs) {
+        continue;
+    }
+    $t = grammar_track($trackKey);
+    // Liste sayfası: tam eşleşme (örn. /gramer ya da /es/grammar)
+    if (count($segments) === $depth) {
+        render('grammar_index', [
+            'groups' => lessons_by_category($trackKey),
+            't'      => $t,
+            'title'  => $t['labels']['pageIndex'],
+        ]);
         exit;
+    }
+    // Tek ders: önek + {slug}
+    if (count($segments) === $depth + 1) {
+        $lesson = get_lesson($segments[$depth], $trackKey);
+        if ($lesson) {
+            render('grammar_lesson', [
+                'lesson' => $lesson,
+                't'      => $t,
+                'title'  => $lesson['title'] . ' — DiDn',
+            ]);
+            exit;
+        }
     }
 }
 
