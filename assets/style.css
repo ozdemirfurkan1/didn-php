@@ -80,6 +80,16 @@ a:hover { text-decoration: underline; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; margin-bottom: 16px; }
 
 /* Hero / search */
+.wotd { display: block; text-align: left; max-width: 560px; margin: 0 auto 24px; padding: 18px 20px; border-left: 3px solid var(--primary); transition: box-shadow .15s, transform .15s; }
+.wotd:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(2,6,23,.10); }
+.wotd-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--primary); margin-bottom: 6px; }
+.wotd-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.wotd-word { font-size: 24px; font-weight: 700; color: var(--fg); letter-spacing: -.01em; }
+.wotd-phonetic { color: var(--muted); font-size: 15px; }
+.wotd-trans { color: var(--fg); margin-top: 4px; font-size: 15px; }
+.wotd-def { color: var(--muted); margin: 8px 0 0; font-size: 14px; line-height: 1.5; }
+.wotd-more { display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--primary); }
+
 .hero { text-align: center; padding: 40px 0 16px; }
 .hero h1 { font-size: 32px; margin: 0 0 8px; letter-spacing: -.02em; }
 .hero-sub { color: var(--muted); margin: 0 auto 24px; max-width: 460px; }

@@ -251,6 +251,60 @@ function is_lookup_error(array $result): bool
     return isset($result['error']);
 }
 
+// Rastgele, çevirisi olan tek bir İngilizce kelime seçip tam sonucunu döndürür.
+// BINARY ... REGEXP ile yalnızca küçük harfli, tek sözcüklü adaylar seçilir
+// (özel isim/kısaltma elenir). Birkaç deneme yapar.
+function pick_random_word_for_day(): ?array
+{
+    for ($i = 0; $i < 8; $i++) {
+        $stmt = db()->query(
+            "SELECT word FROM english WHERE BINARY word REGEXP '^[a-z]{3,15}$' ORDER BY RAND() LIMIT 1"
+        );
+        $w = $stmt ? (string) $stmt->fetchColumn() : '';
+        if ($w === '') {
+            continue;
+        }
+        $res = lookup_word($w, 'en-tr');
+        if (!is_lookup_error($res) && !empty($res['translations'])) {
+            return $res;
+        }
+    }
+    return null;
+}
+
+// Günün kelimesi: gün içinde değişmez, her gün yenilenir. Seçilen kelime
+// app_setting'te (word_of_the_day) tarih damgasıyla saklanır; aynı gün tekrar
+// sorgu yapılmaz. DB erişilemezse null döner (ana sayfa bozulmaz).
+function get_word_of_the_day(): ?array
+{
+    $today = date('Y-m-d');
+    try {
+        $stored = function_exists('get_setting') ? get_setting('word_of_the_day') : null;
+        if ($stored) {
+            $p = json_decode($stored, true);
+            if (is_array($p) && ($p['date'] ?? null) === $today && !empty($p['word'])) {
+                return $p['word'];
+            }
+        }
+        $res = pick_random_word_for_day();
+        if (!$res) {
+            return null;
+        }
+        $payload = [
+            'headword'     => $res['headword'],
+            'query'        => $res['query'],
+            'phonetic'     => $res['phonetic'] ?? null,
+            'audioUrl'     => $res['audioUrl'] ?? null,
+            'translations' => array_slice($res['translations'], 0, 6),
+            'meaning'      => $res['meanings'][0] ?? null,
+        ];
+        set_setting('word_of_the_day', json_encode(['date' => $today, 'word' => $payload], JSON_UNESCAPED_UNICODE));
+        return $payload;
+    } catch (Throwable $e) {
+        return null;
+    }
+}
+
 // Çevirileri part-of-speech'e göre gruplar (Tureng tarzı görünüm için).
 function group_translations_by_type(array $entries): array
 {

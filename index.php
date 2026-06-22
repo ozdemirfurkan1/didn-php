@@ -59,7 +59,7 @@ if ($uri === '/cron/generate-blog') {
 }
 
 if ($uri === '/') {
-    render('home');
+    render('home', ['wotd' => get_word_of_the_day()]);
     exit;
 }
 
