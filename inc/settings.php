@@ -84,9 +84,20 @@ function set_openai_model(string $model): void
 
 const OPENAI_ALLOWED_MODELS = ['gpt-4o-mini', 'gpt-4o'];
 
-// --- Blog üretici yapılandırması ------------------------------------------
+// --- İçerik üretici yapılandırması (türe göre: blog/rehber/haber) ----------
 
-function default_blog_config(): array
+// Ayar/durum anahtarları. Blog için eski anahtarlar korunur (geriye uyumluluk).
+function gen_config_key(string $type): string
+{
+    return $type === 'blog' ? 'blog_generator' : $type . '_generator';
+}
+
+function gen_status_key(string $type): string
+{
+    return $type === 'blog' ? 'blog_generator_status' : $type . '_generator_status';
+}
+
+function default_generator_config(): array
 {
     return [
         'enabled'           => false,
@@ -98,24 +109,24 @@ function default_blog_config(): array
     ];
 }
 
-function get_blog_config(): array
+function get_generator_config(string $type): array
 {
-    $v = get_setting('blog_generator');
+    $v = get_setting(gen_config_key($type));
     if (!$v) {
-        return default_blog_config();
+        return default_generator_config();
     }
     $parsed = json_decode($v, true);
-    return is_array($parsed) ? array_merge(default_blog_config(), $parsed) : default_blog_config();
+    return is_array($parsed) ? array_merge(default_generator_config(), $parsed) : default_generator_config();
 }
 
-function set_blog_config(array $cfg): void
+function set_generator_config(string $type, array $cfg): void
 {
-    set_setting('blog_generator', json_encode($cfg, JSON_UNESCAPED_UNICODE));
+    set_setting(gen_config_key($type), json_encode($cfg, JSON_UNESCAPED_UNICODE));
 }
 
-function get_blog_status(): array
+function get_generator_status(string $type): array
 {
-    $v = get_setting('blog_generator_status');
+    $v = get_setting(gen_status_key($type));
     if (!$v) {
         return [];
     }
@@ -123,7 +134,14 @@ function get_blog_status(): array
     return is_array($parsed) ? $parsed : [];
 }
 
-function set_blog_status(array $status): void
+function set_generator_status(string $type, array $status): void
 {
-    set_setting('blog_generator_status', json_encode($status, JSON_UNESCAPED_UNICODE));
+    set_setting(gen_status_key($type), json_encode($status, JSON_UNESCAPED_UNICODE));
 }
+
+// Blog'a özel kısayollar (eski çağrılarla uyumluluk için).
+function default_blog_config(): array { return default_generator_config(); }
+function get_blog_config(): array { return get_generator_config('blog'); }
+function set_blog_config(array $cfg): void { set_generator_config('blog', $cfg); }
+function get_blog_status(): array { return get_generator_status('blog'); }
+function set_blog_status(array $status): void { set_generator_status('blog', $status); }

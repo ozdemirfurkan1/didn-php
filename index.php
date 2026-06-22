@@ -203,26 +203,38 @@ if (($segments[0] ?? '') === 'admin') {
         redirect('/admin/ayarlar');
     }
 
-    // Blog Üretici
-    if ($sub === 'blog-uretici') {
-        $act = $segments[2] ?? '';
-        if ($act === 'uret' && $method === 'POST') {
+    // İçerik Üretici (blog/rehber/haber). İki rota:
+    //  /admin/blog-uretici[/uret]        → blog (eski URL, uyumluluk)
+    //  /admin/uretici/{type}[/uret]      → tüm türler
+    if ($sub === 'blog-uretici' || $sub === 'uretici') {
+        if ($sub === 'blog-uretici') {
+            $genType = 'blog';
+            $genAct  = $segments[2] ?? '';
+        } else {
+            $genType = $segments[2] ?? '';
+            $genAct  = $segments[3] ?? '';
+        }
+        if (!is_content_type($genType)) {
+            redirect('/admin');
+        }
+        $genBase = '/admin/uretici/' . $genType;
+        if ($genAct === 'uret' && $method === 'POST') {
             if (csrf_check()) {
                 $mode = ($_POST['mode'] ?? 'draft') === 'publish' ? 'publish' : 'draft';
-                $r = run_blog_generation($mode);
+                $r = run_content_generation($genType, $mode);
                 set_flash(
                     $r['ok'] ? ($mode === 'publish' ? 'Üretildi ve yayınlandı.' : 'Taslak olarak üretildi.') : ('Üretim başarısız: ' . $r['error']),
                     $r['ok'] ? 'ok' : 'error'
                 );
             }
-            redirect('/admin/blog-uretici');
+            redirect($genBase);
         }
         if ($method === 'POST') { // ayarları kaydet
             if (csrf_check()) {
                 $earliest = max(0, min(23, (int) ($_POST['earliestHour'] ?? 9)));
                 $latest   = max(0, min(23, (int) ($_POST['latestHour'] ?? 18)));
                 $pool = array_values(array_filter(array_map('trim', explode("\n", $_POST['topicPool'] ?? '')), fn($s) => $s !== ''));
-                set_blog_config([
+                set_generator_config($genType, [
                     'enabled'           => !empty($_POST['enabled']),
                     'publishMode'       => ($_POST['publishMode'] ?? 'draft') === 'publish' ? 'publish' : 'draft',
                     'earliestHour'      => min($earliest, $latest),
@@ -232,13 +244,16 @@ if (($segments[0] ?? '') === 'admin') {
                 ]);
                 set_flash('Ayarlar kaydedildi.');
             }
-            redirect('/admin/blog-uretici');
+            redirect($genBase);
         }
         render('admin_blog_generator', [
-            'config'         => get_blog_config(),
-            'status'         => get_blog_status(),
+            'type'           => $genType,
+            'typeLabel'      => CONTENT_TYPES[$genType]['label'],
+            'genBase'        => $genBase,
+            'config'         => get_generator_config($genType),
+            'status'         => get_generator_status($genType),
             'cronConfigured' => !empty(config()['cron_secret']),
-            'title'          => 'Blog Üretici — DiDn',
+            'title'          => CONTENT_TYPES[$genType]['label'] . ' Üretici — DiDn',
         ]);
         exit;
     }

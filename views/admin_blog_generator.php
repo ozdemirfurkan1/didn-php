@@ -3,17 +3,21 @@ declare(strict_types=1);
 /** @var array $config */
 /** @var array $status */
 /** @var bool $cronConfigured */
-$pool = implode("\n", $config['topicPool'] ?? []);
+/** @var string $type */
+/** @var string $typeLabel */
+/** @var string $genBase */
+$pool  = implode("\n", $config['topicPool'] ?? []);
+$lower = mb_strtolower($typeLabel, 'UTF-8');
 ?>
 <a href="/admin" class="back-link">← Yönetim Paneli</a>
-<h1 class="admin-h1">Blog Üretici</h1>
-<p class="admin-sub">Konu havuzundaki bir konuda yapay zekâ ile blog üretir. Elle veya otomatik.</p>
+<h1 class="admin-h1"><?= e($typeLabel) ?> Üretici</h1>
+<p class="admin-sub">Konu havuzundaki bir konuda yapay zekâ ile <?= e($lower) ?> üretir. Elle veya otomatik.</p>
 <?php include __DIR__ . '/_flash.php'; ?>
 
 <section class="card settings-section">
     <h2>Otomatik üretim</h2>
-    <p class="settings-desc">Her gün, gün içinde rastgele bir saatte, konu havuzundaki bir konuda blog üretir.</p>
-    <form method="post" action="/admin/blog-uretici" class="settings-form">
+    <p class="settings-desc">Her gün, gün içinde rastgele bir saatte, konu havuzundaki bir konuda <?= e($lower) ?> üretir.</p>
+    <form method="post" action="<?= e($genBase) ?>" class="settings-form">
         <?= csrf_field() ?>
         <label class="check-row">
             <input type="checkbox" name="enabled" value="1" <?= !empty($config['enabled']) ? 'checked' : '' ?>>
@@ -45,16 +49,16 @@ $pool = implode("\n", $config['topicPool'] ?? []);
 
 <section class="card settings-section">
     <h2>Şimdi Üret</h2>
-    <p class="settings-desc">Konu havuzundan rastgele bir konuda hemen blog üretir. Metin üretimi ~3 kuruş; görsel üretilmez.</p>
+    <p class="settings-desc">Konu havuzundan rastgele bir konuda hemen <?= e($lower) ?> üretir. Metin üretimi ~3 kuruş; görsel üretilmez.</p>
     <div class="run-buttons">
-        <form method="post" action="/admin/blog-uretici/uret" class="inline-form"
-              onsubmit="return confirm('Bir blog üretilecek (taslak). OpenAI'da ~3 kuruş ücretlendirilir. Devam?');">
+        <form method="post" action="<?= e($genBase) ?>/uret" class="inline-form"
+              onsubmit="return confirm('Bir içerik üretilecek (taslak). OpenAI'da ~3 kuruş ücretlendirilir. Devam?');">
             <?= csrf_field() ?>
             <input type="hidden" name="mode" value="draft">
             <button type="submit" class="btn-secondary">Şimdi Üret (taslak)</button>
         </form>
-        <form method="post" action="/admin/blog-uretici/uret" class="inline-form"
-              onsubmit="return confirm('Bir blog üretilip YAYINLANACAK. OpenAI'da ~3 kuruş ücretlendirilir. Devam?');">
+        <form method="post" action="<?= e($genBase) ?>/uret" class="inline-form"
+              onsubmit="return confirm('Bir içerik üretilip YAYINLANACAK. OpenAI'da ~3 kuruş ücretlendirilir. Devam?');">
             <?= csrf_field() ?>
             <input type="hidden" name="mode" value="publish">
             <button type="submit" class="btn-primary">Üret ve Yayınla</button>
@@ -83,6 +87,6 @@ $pool = implode("\n", $config['topicPool'] ?? []);
         <summary>Otomatik üretim nasıl kurulur?</summary>
         <p>Her zaman açık bir makinedeki bir zamanlayıcı (sistem/hosting cron) şu ucu saat başı çağırmalı:</p>
         <code>POST /cron/generate-blog?secret=&lt;CRON_SECRET&gt;</code>
-        <p>config.local.php içine bir <code>cron_secret</code> ekle. Uç, gün içinde rastgele bir saatte yalnızca bir kez üretir.</p>
+        <p>config.local.php içine bir <code>cron_secret</code> ekle. Tek bir cron, <strong>açık olan tüm türleri</strong> (blog, rehber, haber) kontrol eder; her tür kendi hedef saatinde, günde yalnızca bir kez üretilir.</p>
     </details>
 </section>
