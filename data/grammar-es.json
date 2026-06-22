@@ -4,205 +4,385 @@
     "title": "Noun Gender — el and la",
     "level": "A1",
     "category": "Nouns & Articles",
-    "summary": "Every Spanish noun is either masculine or feminine, which changes the articles and adjectives around it.",
+    "summary": "Every Spanish noun is either masculine or feminine. Gender controls the articles and adjectives around the noun, so it must be learned with each word.",
     "intro": [
-      "Unlike English, every Spanish noun has a grammatical gender: masculine or feminine. This is not about biology — a table (la mesa) is feminine and a book (el libro) is masculine.",
-      "Gender matters because the words around the noun (articles, adjectives) must match it. So it is best to learn each noun together with its article."
+      "Unlike English, every single Spanish noun carries a grammatical gender: it is either masculine or feminine. This has little to do with biology — a table (la mesa) is feminine and a book (el libro) is masculine. Gender is simply a property of the word itself.",
+      "Why does it matter? Because the words that travel with a noun — articles (el, la, un, una) and adjectives (rojo/roja, bueno/buena) — must agree with that gender. If you get the gender wrong, everything attached to the noun sounds wrong too.",
+      "The practical advice every good learner follows: never memorise a noun alone. Learn it together with its article. Don't learn 'mesa' — learn 'la mesa'. Don't learn 'libro' — learn 'el libro'. The article becomes part of the word in your memory."
     ],
     "formula": "el + masculine noun  •  la + feminine noun",
     "sections": [
       {
-        "heading": "Common endings (useful clues)",
-        "body": ["Endings are not a rule, but they predict gender most of the time."],
+        "heading": "Endings that usually signal masculine",
+        "body": ["These endings are reliable clues, though not absolute rules. They will be right the large majority of the time."],
         "bullets": [
-          "-o is usually masculine: el libro, el perro, el dinero",
-          "-a is usually feminine: la casa, la mesa, la palabra",
-          "-ción, -sión, -dad, -tad are feminine: la nación, la ciudad, la libertad",
-          "-ma (from Greek) is often masculine: el problema, el tema, el programa"
+          "-o → el libro (book), el perro (dog), el dinero (money), el coche (car)",
+          "-or → el profesor (teacher), el amor (love), el color (colour)",
+          "-aje → el viaje (trip), el paisaje (landscape), el mensaje (message)",
+          "-ma/-pa/-ta from Greek → el problema, el tema, el idioma, el mapa, el planeta"
         ]
       },
       {
-        "heading": "Watch out for exceptions",
+        "heading": "Endings that usually signal feminine",
+        "body": ["Just like the masculine clues, these point you the right way most of the time."],
         "bullets": [
-          "el día (the day) ends in -a but is masculine",
-          "la mano (the hand) ends in -o but is feminine",
-          "el mapa, el sofá — masculine despite the -a ending"
+          "-a → la casa (house), la mesa (table), la palabra (word), la silla (chair)",
+          "-ción / -sión → la nación (nation), la canción (song), la decisión (decision)",
+          "-dad / -tad → la ciudad (city), la verdad (truth), la libertad (freedom)",
+          "-tud / -umbre → la actitud (attitude), la costumbre (custom)"
         ],
         "examples": [
-          { "es": "El libro es nuevo.", "en": "The book is new.", "note": "libro → masculine → el / nuevo" },
-          { "es": "La casa es nueva.", "en": "The house is new.", "note": "casa → feminine → la / nueva" }
+          { "es": "El libro nuevo está en la mesa.", "en": "The new book is on the table.", "note": "libro → masculine (el / nuevo); mesa → feminine (la)" },
+          { "es": "La decisión final es importante.", "en": "The final decision is important.", "note": "-sión → feminine → la / final" },
+          { "es": "El problema es muy grande.", "en": "The problem is very big.", "note": "problema is masculine despite ending in -a" }
+        ]
+      },
+      {
+        "heading": "Nouns for people: the same word, two genders",
+        "body": ["Many nouns referring to people change ending to match the person, and the article changes too."],
+        "bullets": [
+          "el profesor / la profesora (the (male/female) teacher)",
+          "el niño / la niña (the boy / the girl)",
+          "el gato / la gata (the (male/female) cat)",
+          "Some don't change form, only the article: el estudiante / la estudiante, el artista / la artista"
+        ],
+        "examples": [
+          { "es": "Mi hermano es médico y mi hermana es médica.", "en": "My brother is a doctor and my sister is a doctor.", "note": "the profession agrees with the person's gender" },
+          { "es": "La estudiante es muy inteligente.", "en": "The (female) student is very intelligent.", "note": "estudiante doesn't change; only the article (la) shows gender" }
+        ]
+      },
+      {
+        "heading": "Tricky exceptions worth memorising",
+        "body": ["A handful of common words break the ending rules. Because they are frequent, it pays to learn them early."],
+        "bullets": [
+          "el día (day), el mapa (map), el sofá (sofa) — end in -a but masculine",
+          "la mano (hand), la foto (photo), la moto (motorbike) — end in -o but feminine",
+          "Feminine nouns starting with a stressed a- use el/un for sound: el agua, el águila, un hacha — but they stay feminine (el agua está fría)"
+        ],
+        "examples": [
+          { "es": "El día es largo y la mano está fría.", "en": "The day is long and the hand is cold.", "note": "el día (masc.), la mano (fem.) — both break the rule" },
+          { "es": "El agua está muy fría.", "en": "The water is very cold.", "note": "el agua for sound, but feminine → fría, not frío" }
         ]
       }
     ],
     "mistakes": [
-      { "wrong": "la problema", "right": "el problema", "note": "problema is masculine even though it ends in -a." },
-      { "wrong": "el mano", "right": "la mano", "note": "mano is feminine even though it ends in -o." }
+      { "wrong": "la problema", "right": "el problema", "note": "Greek-origin -ma words are masculine." },
+      { "wrong": "el mano", "right": "la mano", "note": "mano is feminine even though it ends in -o." },
+      { "wrong": "el agua frío", "right": "el agua fría", "note": "agua takes el for sound but stays feminine, so the adjective is fría." },
+      { "wrong": "la día", "right": "el día", "note": "día is masculine despite the -a ending." }
     ],
-    "related": ["articles-es", "adjective-agreement"]
+    "related": ["articles-es", "adjective-agreement", "plurals-es"]
   },
   {
     "slug": "articles-es",
     "title": "Articles — el, la, los, las / un, una",
     "level": "A1",
     "category": "Nouns & Articles",
-    "summary": "Definite (the) and indefinite (a/an) articles change for gender and number in Spanish.",
+    "summary": "Definite (the) and indefinite (a/an/some) articles change for both gender and number, and two of them contract with a and de.",
     "intro": [
-      "In English there is only one definite article (the) and two indefinite ones (a/an). In Spanish, articles change to match the gender and number of the noun.",
-      "Because of this, the article tells you a lot about the noun even before you know the word."
+      "In English there is one definite article (the) and the indefinite a/an. Spanish has a fuller set: articles change to match the gender (masculine/feminine) and number (singular/plural) of the noun they introduce.",
+      "This is actually helpful — the article gives you information about the noun before you even reach it. If you hear 'las', you already know what follows is feminine and plural.",
+      "There are also two small but very frequent contractions (al and del) and a special rule for feminine words that begin with a stressed a- sound."
     ],
     "formula": "Definite: el / la / los / las  •  Indefinite: un / una / unos / unas",
     "sections": [
       {
-        "heading": "Definite articles (the)",
+        "heading": "Definite articles — 'the'",
+        "body": ["Use these for something specific or already known, and also for nouns used in a general sense (which English often leaves bare)."],
         "bullets": [
-          "el — masculine singular: el coche",
-          "la — feminine singular: la silla",
-          "los — masculine plural: los coches",
-          "las — feminine plural: las sillas"
-        ]
-      },
-      {
-        "heading": "Indefinite articles (a / an / some)",
-        "bullets": [
-          "un — masculine singular: un coche (a car)",
-          "una — feminine singular: una silla (a chair)",
-          "unos / unas — plural: some (unos coches, unas sillas)"
+          "el — masculine singular: el coche (the car)",
+          "la — feminine singular: la silla (the chair)",
+          "los — masculine plural: los coches (the cars)",
+          "las — feminine plural: las sillas (the chairs)"
         ],
         "examples": [
-          { "es": "Quiero un café.", "en": "I want a coffee.", "note": "café → masculine → un" },
-          { "es": "Las casas son grandes.", "en": "The houses are big.", "note": "feminine plural → las" }
+          { "es": "El coche de mi padre es azul.", "en": "My father's car is blue.", "note": "specific car → el" },
+          { "es": "Me gustan los gatos.", "en": "I like cats.", "note": "general statement: Spanish keeps the article (los) where English drops it" }
         ]
       },
       {
-        "heading": "Two special contractions",
-        "body": ["When el follows a or de, the words merge."],
+        "heading": "Indefinite articles — 'a / an / some'",
+        "body": ["Use these for something new or non-specific. In the plural they mean 'some' or 'a few'."],
         "bullets": [
-          "a + el = al: Voy al cine. (I go to the cinema.)",
-          "de + el = del: La puerta del coche. (The car door.)"
+          "un — masculine singular: un libro (a book)",
+          "una — feminine singular: una casa (a house)",
+          "unos — masculine plural: unos libros (some books)",
+          "unas — feminine plural: unas casas (some houses)"
+        ],
+        "examples": [
+          { "es": "Quiero un café, por favor.", "en": "I want a coffee, please.", "note": "café → masculine → un" },
+          { "es": "Hay unas personas en la puerta.", "en": "There are some people at the door.", "note": "unas = a few (feminine plural)" }
+        ]
+      },
+      {
+        "heading": "The two contractions: al and del",
+        "body": ["When the masculine 'el' follows the prepositions a (to) or de (of/from), the two words merge into one. This is obligatory, not optional. Note it only happens with el — never with la, los, las."],
+        "bullets": [
+          "a + el = al → Voy al cine. (I'm going to the cinema.)",
+          "de + el = del → La puerta del coche. (The door of the car.)",
+          "No contraction with the others: a la, a los, a las, de la, de los, de las"
+        ],
+        "examples": [
+          { "es": "Vamos al parque y volvemos del trabajo tarde.", "en": "We go to the park and come back from work late.", "note": "a+el=al, de+el=del" },
+          { "es": "Voy a la escuela.", "en": "I go to the school.", "note": "a + la does NOT contract" }
+        ]
+      },
+      {
+        "heading": "When Spanish omits the article",
+        "body": ["Sometimes Spanish drops the article where you might expect one — especially with professions and quantities."],
+        "bullets": [
+          "Unmodified professions after ser: Soy profesor. (I am a teacher.) — no un",
+          "But add the article if you describe it: Soy un buen profesor.",
+          "After hay (there is/are) with plurals: Hay libros en la mesa."
+        ],
+        "examples": [
+          { "es": "Mi madre es médica.", "en": "My mother is a doctor.", "note": "profession with ser → no article" },
+          { "es": "Es un médico excelente.", "en": "He is an excellent doctor.", "note": "described profession → article comes back" }
+        ]
+      },
+      {
+        "heading": "Feminine words starting with stressed a-",
+        "body": ["To avoid two a-sounds clashing, feminine singular nouns that begin with a stressed a- or ha- take el/un instead of la/una. The noun stays feminine, and the plural goes back to las/unas."],
+        "bullets": [
+          "el agua (but: las aguas), el águila (the eagle), el hacha (the axe), un alma (a soul)",
+          "Adjectives stay feminine: el agua fría, mucha agua"
+        ],
+        "examples": [
+          { "es": "El agua está fría pero las aguas del mar están calientes.", "en": "The water is cold but the sea waters are warm.", "note": "singular el agua, plural las aguas — always feminine" }
         ]
       }
     ],
     "mistakes": [
       { "wrong": "Voy a el cine.", "right": "Voy al cine.", "note": "a + el always contracts to al." },
-      { "wrong": "el agua fría... una agua", "right": "el agua fría / un agua", "note": "Feminine nouns starting with stressed a- take el/un for sound, but stay feminine: el agua está fría." }
+      { "wrong": "Soy un profesor.", "right": "Soy profesor.", "note": "Drop the article with an unmodified profession after ser." },
+      { "wrong": "el agua frío / la agua", "right": "el agua fría", "note": "el agua for sound, but the noun is feminine (fría)." },
+      { "wrong": "la problema / un problema... la mapa", "right": "el problema, el mapa", "note": "Match the article to the real gender, not just the ending." }
     ],
-    "related": ["nouns-gender", "plurals-es"]
+    "related": ["nouns-gender", "plurals-es", "adjective-agreement"]
   },
   {
     "slug": "plurals-es",
-    "title": "Plurals — making nouns plural",
+    "title": "Plurals — making nouns and articles plural",
     "level": "A1",
     "category": "Nouns & Articles",
-    "summary": "Add -s or -es to make a noun plural, and remember the article becomes plural too.",
+    "summary": "Add -s after a vowel and -es after a consonant. Watch the spelling changes (-z to -ces) and remember to make the article and adjective plural too.",
     "intro": [
-      "Forming plurals in Spanish is regular and predictable. The main choice is between -s and -es, depending on the last letter of the word."
+      "Forming plurals in Spanish is regular and predictable — far simpler than the gender system. The main decision is whether to add -s or -es, and that depends on the last sound of the word.",
+      "The key thing English speakers forget: when the noun goes plural, everything around it goes plural too. The article (el → los) and any adjective (rojo → rojos) must follow."
     ],
     "formula": "ends in vowel → + s  •  ends in consonant → + es",
     "sections": [
       {
-        "heading": "The two basic rules",
+        "heading": "Rule 1 — words ending in a vowel add -s",
         "bullets": [
-          "Ends in a vowel: add -s → libro → libros, casa → casas",
-          "Ends in a consonant: add -es → ciudad → ciudades, profesor → profesores"
+          "libro → libros (books)",
+          "casa → casas (houses)",
+          "coche → coches (cars)",
+          "café → cafés (a stressed final vowel still just adds -s)"
+        ],
+        "examples": [
+          { "es": "Tengo dos hermanos y tres primos.", "en": "I have two brothers and three cousins.", "note": "hermano/primo end in vowel → + s" }
         ]
       },
       {
-        "heading": "Spelling adjustments",
+        "heading": "Rule 2 — words ending in a consonant add -es",
         "bullets": [
-          "Words ending in -z change to -ces: lápiz → lápices, luz → luces",
-          "An accent on the last syllable often disappears: nación → naciones"
+          "ciudad → ciudades (cities)",
+          "profesor → profesores (teachers)",
+          "papel → papeles (papers)",
+          "rey → reyes (kings) — final -y counts as a consonant here"
         ],
         "examples": [
-          { "es": "Tengo dos hermanos.", "en": "I have two brothers.", "note": "hermano + s" },
-          { "es": "Hay muchas ciudades grandes.", "en": "There are many big cities.", "note": "ciudad + es, las/muchas plural" }
+          { "es": "Hay muchas ciudades grandes en España.", "en": "There are many big cities in Spain.", "note": "ciudad → ciudades; grande → grandes" }
+        ]
+      },
+      {
+        "heading": "Spelling changes you must watch",
+        "body": ["Two patterns trip up beginners: words ending in -z, and accents on the final syllable."],
+        "bullets": [
+          "Final -z becomes -ces: lápiz → lápices, luz → luces, vez → veces",
+          "An accent on the last syllable usually disappears in the plural: nación → naciones, inglés → ingleses",
+          "Words ending in -s with no stress on the last syllable don't change: el lunes → los lunes, la crisis → las crisis"
+        ],
+        "examples": [
+          { "es": "Necesito dos lápices y tres luces nuevas.", "en": "I need two pencils and three new lights.", "note": "z → ces" },
+          { "es": "Los lunes son difíciles.", "en": "Mondays are hard.", "note": "el lunes / los lunes — same form" }
+        ]
+      },
+      {
+        "heading": "Don't forget the article and adjective",
+        "body": ["A plural noun pulls its whole group into the plural. This is the most common slip for English speakers."],
+        "bullets": [
+          "el coche rojo → los coches rojos",
+          "la casa blanca → las casas blancas",
+          "una idea buena → unas ideas buenas"
+        ],
+        "examples": [
+          { "es": "Las casas blancas son bonitas.", "en": "The white houses are pretty.", "note": "la→las, casa→casas, blanca→blancas — all plural and feminine" }
         ]
       }
     ],
     "mistakes": [
-      { "wrong": "los lápizs", "right": "los lápices", "note": "Final -z becomes -ces in the plural." },
-      { "wrong": "los ciudades", "right": "las ciudades", "note": "ciudad is feminine, so the article is las." }
+      { "wrong": "los lápizs", "right": "los lápices", "note": "Final -z changes to -ces." },
+      { "wrong": "los ciudades", "right": "las ciudades", "note": "ciudad is feminine, so the article is las." },
+      { "wrong": "los coches rojo", "right": "los coches rojos", "note": "The adjective must agree in number too." }
     ],
-    "related": ["articles-es", "nouns-gender"]
+    "related": ["articles-es", "nouns-gender", "adjective-agreement"]
   },
   {
     "slug": "subject-pronouns",
     "title": "Subject Pronouns — yo, tú, él…",
     "level": "A1",
     "category": "Pronouns",
-    "summary": "The words for I, you, he, she, we and they — often dropped because the verb already shows who acts.",
+    "summary": "The words for I, you, he, she, we and they — usually dropped, because the verb ending already shows who is acting. Knowing them is still essential for emphasis and for choosing the right verb form.",
     "intro": [
-      "Subject pronouns name who does the action. The big difference from English is that Spanish usually drops them, because the verb ending already tells you the subject.",
-      "So 'Hablo español' already means 'I speak Spanish' — you do not need yo."
+      "Subject pronouns tell you who performs the action. The biggest difference from English is that Spanish normally leaves them out: the verb ending already carries that information. 'Hablo español' on its own means 'I speak Spanish' — no yo needed.",
+      "So why learn them at all? Three reasons: (1) they tell you which verb ending to use, (2) you bring them back for emphasis or contrast, and (3) the formal/informal distinction (tú vs usted) is a real social choice you must make.",
+      "Spanish also distinguishes 'you all' as one word, and even marks the gender of a group with nosotros/nosotras and ellos/ellas."
     ],
-    "formula": "yo, tú, él/ella/usted, nosotros/as, vosotros/as, ellos/ellas/ustedes",
+    "formula": "yo · tú · él/ella/usted · nosotros(as) · vosotros(as) · ellos/ellas/ustedes",
     "sections": [
       {
-        "heading": "The full set",
+        "heading": "The complete set",
         "bullets": [
           "yo = I",
-          "tú = you (informal singular)",
-          "él / ella = he / she ; usted = you (formal singular)",
-          "nosotros / nosotras = we",
+          "tú = you (one person, informal)",
+          "él = he · ella = she · usted = you (one person, formal)",
+          "nosotros / nosotras = we (mixed or all-female group)",
           "vosotros / vosotras = you all (informal, mainly Spain)",
-          "ellos / ellas = they ; ustedes = you all"
+          "ellos / ellas = they · ustedes = you all (formal in Spain, all 'you all' in Latin America)"
+        ],
+        "examples": [
+          { "es": "Nosotras somos amigas.", "en": "We are friends.", "note": "nosotras → an all-female 'we'" },
+          { "es": "Ellos viven en Madrid.", "en": "They live in Madrid.", "note": "ellos → a group with at least one male" }
         ]
       },
       {
-        "heading": "tú vs usted",
-        "body": ["Use tú with friends, family and people your age. Use usted to show respect or distance (a stranger, a boss, an elder). Usted uses the same verb form as él/ella."],
+        "heading": "Why pronouns are usually dropped",
+        "body": ["Because each verb ending is unique to a subject, repeating the pronoun sounds heavy or unnatural. Use the bare verb by default."],
+        "bullets": [
+          "hablo = I speak · hablas = you speak · habla = he/she speaks",
+          "Add the pronoun only for emphasis, contrast or clarity"
+        ],
         "examples": [
-          { "es": "(Yo) hablo inglés.", "en": "I speak English.", "note": "yo is optional — the -o ending already means 'I'." },
-          { "es": "¿Usted tiene tiempo?", "en": "Do you have time? (formal)", "note": "usted = polite 'you', uses the él/ella verb form" }
+          { "es": "Hablo inglés y estudio español.", "en": "I speak English and study Spanish.", "note": "no yo — the -o endings already mean 'I'" },
+          { "es": "Yo trabajo, pero él descansa.", "en": "I work, but he rests.", "note": "pronouns added for contrast between two people" }
+        ]
+      },
+      {
+        "heading": "tú vs usted — the politeness choice",
+        "body": ["This is a social decision, not just grammar. Get it wrong and you can sound too cold or too casual."],
+        "bullets": [
+          "tú → friends, family, classmates, children, people your own age",
+          "usted → strangers, elders, customers, a boss, anyone you want to show respect to",
+          "Important: usted uses the SAME verb form as él/ella (usted tiene, not usted tienes)",
+          "When unsure with an adult you don't know, start with usted"
+        ],
+        "examples": [
+          { "es": "¿Tú tienes hambre?", "en": "Are you hungry? (to a friend)", "note": "tú → informal, verb form tienes" },
+          { "es": "¿Usted necesita ayuda?", "en": "Do you need help? (polite)", "note": "usted → formal, uses the él/ella form necesita" }
+        ]
+      },
+      {
+        "heading": "vosotros vs ustedes — 'you all'",
+        "body": ["Spanish has a dedicated plural 'you'. Which one you use depends on the region."],
+        "bullets": [
+          "In Spain: vosotros/vosotras = informal you all; ustedes = formal you all",
+          "In Latin America: ustedes covers ALL 'you all', formal or informal (vosotros isn't used)",
+          "ustedes takes the same verb form as ellos/ellas"
+        ],
+        "examples": [
+          { "es": "¿Vosotros venís a la fiesta?", "en": "Are you all coming to the party? (Spain, informal)", "note": "vosotros form: venís" },
+          { "es": "¿Ustedes hablan español?", "en": "Do you all speak Spanish?", "note": "ustedes → same form as ellos (hablan)" }
         ]
       }
     ],
     "mistakes": [
-      { "wrong": "Yo soy yo voy a casa.", "right": "Voy a casa.", "note": "Don't overuse yo — drop it unless you need emphasis or contrast." },
-      { "wrong": "tú es mi amigo", "right": "tú eres mi amigo", "note": "tú takes its own verb form (eres), not the él form (es)." }
+      { "wrong": "Yo soy yo voy a casa.", "right": "Voy a casa.", "note": "Don't pile up or overuse yo — drop it unless you need emphasis." },
+      { "wrong": "tú es mi amigo", "right": "tú eres mi amigo", "note": "tú has its own verb form (eres), not the él form (es)." },
+      { "wrong": "usted tienes razón", "right": "usted tiene razón", "note": "usted uses the él/ella form (tiene), not the tú form." }
     ],
-    "related": ["present-tense", "ser-vs-estar"]
+    "related": ["present-tense", "ser-vs-estar", "object-pronouns"]
   },
   {
     "slug": "present-tense",
     "title": "Present Tense — regular -ar, -er, -ir verbs",
     "level": "A1",
     "category": "Verbs",
-    "summary": "Spanish verbs end in -ar, -er or -ir. Drop the ending and add a new one for each subject.",
+    "summary": "Spanish verbs belong to three families (-ar, -er, -ir). Drop the ending to get the stem, then add a new ending for each subject. One present tense covers both 'I speak' and 'I am speaking'.",
     "intro": [
-      "Spanish verbs come in three families based on their ending: -ar (hablar), -er (comer), -ir (vivir). To conjugate, you remove the ending (the 'stem') and add a new ending that matches the subject.",
-      "The present tense covers both English 'I speak' and 'I am speaking'."
+      "Every Spanish verb in the dictionary ends in -ar, -er or -ir. This ending decides which set of endings you'll add. To conjugate, you chop off the last two letters to get the 'stem', then attach the ending that matches your subject.",
+      "Good news for English speakers: the Spanish present tense does the work of several English structures. 'Hablo' can mean 'I speak', 'I am speaking', and 'I do speak'. You don't need a separate continuous form for most situations.",
+      "The -er and -ir endings are almost identical — they only differ in the nosotros and vosotros forms — so once you learn -ar and -er, -ir is nearly free."
     ],
-    "formula": "stem + ending (the ending shows who does the action)",
+    "formula": "stem + ending (the ending shows who acts and replaces the need for a pronoun)",
     "sections": [
       {
         "heading": "-ar verbs: hablar (to speak)",
         "bullets": [
-          "yo hablo, tú hablas, él/ella habla",
-          "nosotros hablamos, vosotros habláis, ellos hablan"
+          "yo hablo · tú hablas · él/ella/usted habla",
+          "nosotros hablamos · vosotros habláis · ellos/ustedes hablan"
+        ],
+        "examples": [
+          { "es": "Hablo dos idiomas.", "en": "I speak two languages.", "note": "hablar → hablo (yo)" },
+          { "es": "Mis padres trabajan mucho.", "en": "My parents work a lot.", "note": "trabajar → trabajan (ellos)" }
         ]
       },
       {
         "heading": "-er verbs: comer (to eat)",
         "bullets": [
-          "yo como, tú comes, él/ella come",
-          "nosotros comemos, vosotros coméis, ellos comen"
+          "yo como · tú comes · él/ella/usted come",
+          "nosotros comemos · vosotros coméis · ellos/ustedes comen"
+        ],
+        "examples": [
+          { "es": "¿Comes carne?", "en": "Do you eat meat?", "note": "comer → comes (tú)" },
+          { "es": "Bebemos agua todos los días.", "en": "We drink water every day.", "note": "beber → bebemos (nosotros)" }
         ]
       },
       {
         "heading": "-ir verbs: vivir (to live)",
+        "body": ["Notice these match -er endings everywhere except nosotros (-imos) and vosotros (-ís)."],
         "bullets": [
-          "yo vivo, tú vives, él/ella vive",
-          "nosotros vivimos, vosotros vivís, ellos viven"
+          "yo vivo · tú vives · él/ella/usted vive",
+          "nosotros vivimos · vosotros vivís · ellos/ustedes viven"
         ],
         "examples": [
-          { "es": "Hablo dos idiomas.", "en": "I speak two languages.", "note": "hablar → hablo (yo)" },
-          { "es": "¿Dónde vives?", "en": "Where do you live?", "note": "vivir → vives (tú)" }
+          { "es": "¿Dónde vives?", "en": "Where do you live?", "note": "vivir → vives (tú)" },
+          { "es": "Escribimos correos cada mañana.", "en": "We write emails every morning.", "note": "escribir → escribimos (nosotros)" }
+        ]
+      },
+      {
+        "heading": "What the present tense expresses",
+        "body": ["This single tense stretches across several English meanings."],
+        "bullets": [
+          "Habitual actions: Estudio español los lunes. (I study Spanish on Mondays.)",
+          "Current/ongoing actions: ¿Qué haces? — Leo un libro. (What are you doing? — I'm reading a book.)",
+          "General truths: El sol sale por el este. (The sun rises in the east.)",
+          "Near-future plans (with a time marker): Mañana viajo a Madrid. (Tomorrow I travel to Madrid.)"
+        ],
+        "examples": [
+          { "es": "Todos los días corro en el parque.", "en": "Every day I run in the park.", "note": "habit" },
+          { "es": "Este fin de semana visito a mi abuela.", "en": "This weekend I'm visiting my grandmother.", "note": "present used for a near-future plan" }
+        ]
+      },
+      {
+        "heading": "A quick note on common irregular verbs",
+        "body": ["A few very frequent verbs don't follow the pattern. You'll meet them constantly, so it helps to recognise them now — several have their own lessons."],
+        "bullets": [
+          "ser (to be): soy, eres, es, somos, sois, son",
+          "estar (to be): estoy, estás, está, estamos, estáis, están",
+          "ir (to go): voy, vas, va, vamos, vais, van",
+          "tener (to have): tengo, tienes, tiene, tenemos, tenéis, tienen"
+        ],
+        "examples": [
+          { "es": "Voy al trabajo y estoy cansado.", "en": "I go to work and I'm tired.", "note": "ir (voy) and estar (estoy) are irregular" }
         ]
       }
     ],
     "mistakes": [
-      { "wrong": "Yo soy hablo español.", "right": "Hablo español.", "note": "Don't add 'ser' — the verb hablo already means 'I speak'." },
-      { "wrong": "Yo como comemos juntos.", "right": "Comemos juntos.", "note": "Match the ending to the subject: nosotros → comemos." }
+      { "wrong": "Yo soy hablo español.", "right": "Hablo español.", "note": "Don't add ser — hablo already means 'I speak'." },
+      { "wrong": "Nosotros comen juntos.", "right": "Comemos juntos.", "note": "Match the ending to the subject: nosotros → comemos." },
+      { "wrong": "Estoy hablando español ahora... (when you just mean 'I speak')", "right": "Hablo español.", "note": "The simple present already covers ongoing actions; reserve estar + -ando for emphasising 'right now'." }
     ],
     "related": ["subject-pronouns", "ser-vs-estar", "tener"]
   },
@@ -211,180 +391,381 @@
     "title": "Ser vs Estar — two verbs for ‘to be’",
     "level": "A2",
     "category": "Verbs",
-    "summary": "Spanish splits English 'to be' into ser (permanent identity) and estar (state/location).",
+    "summary": "Spanish splits English 'to be' into two verbs. Ser describes essence and identity; estar describes states, location and feelings. The same adjective can change meaning depending on which one you pick.",
     "intro": [
-      "English has one verb 'to be'. Spanish has two, and choosing wrong can change the meaning. The simplest guide: ser describes what something essentially is; estar describes how or where it is right now.",
-      "Both are irregular, so it helps to memorise their forms."
+      "English gets by with a single verb 'to be'. Spanish uses two — ser and estar — and choosing the wrong one can change your meaning or simply sound foreign. This is one of the genuine challenges of early Spanish, so it deserves real attention.",
+      "The cleanest mental model: ser tells you WHAT something fundamentally is (its identity, its nature). Estar tells you HOW or WHERE something is right now (its condition, its position).",
+      "Both verbs are irregular, so learn their forms first, then drill the difference with lots of examples. A useful memory aid for ser is DOCTOR (Description, Occupation, Characteristic, Time, Origin, Relationship); for estar, PLACE (Position, Location, Action in progress, Condition, Emotion)."
     ],
-    "formula": "ser → identity, origin, time  •  estar → location, condition, feeling",
+    "formula": "ser → identity / origin / time / permanent traits  •  estar → location / condition / feelings / ongoing actions",
     "sections": [
       {
-        "heading": "When to use ser",
+        "heading": "The forms (both irregular)",
         "bullets": [
-          "Identity / description: Soy profesor. (I am a teacher.)",
-          "Origin / nationality: Es de México.",
-          "Time and dates: Son las tres. (It's three o'clock.)",
-          "Permanent qualities: El hielo es frío."
+          "ser: soy · eres · es · somos · sois · son",
+          "estar: estoy · estás · está · estamos · estáis · están"
+        ],
+        "examples": [
+          { "es": "Soy de España, pero estoy en México ahora.", "en": "I am from Spain, but I'm in Mexico now.", "note": "origin → ser; current location → estar" }
         ]
       },
       {
-        "heading": "When to use estar",
+        "heading": "Use ser for identity and essence",
         "bullets": [
-          "Location: Madrid está en España.",
-          "Temporary states / feelings: Estoy cansado. (I'm tired.)",
-          "Ongoing actions (estar + -ando/-iendo): Estoy comiendo."
+          "Who/what something is: Soy profesor. (I am a teacher.)",
+          "Origin and nationality: Ella es de Colombia. Es colombiana.",
+          "Time, dates, days: Son las tres. Hoy es lunes.",
+          "Material and possession: La mesa es de madera. El libro es de Ana.",
+          "Permanent/defining traits: El hielo es frío. Mi hermano es alto."
         ],
         "examples": [
-          { "es": "Mi hermana es alta.", "en": "My sister is tall.", "note": "ser → a permanent trait" },
-          { "es": "Mi hermana está enferma.", "en": "My sister is sick.", "note": "estar → a temporary state" }
+          { "es": "Mi hermana es alta y muy inteligente.", "en": "My sister is tall and very intelligent.", "note": "defining characteristics → ser" },
+          { "es": "Son las ocho de la mañana.", "en": "It's eight in the morning.", "note": "telling time → ser" }
+        ]
+      },
+      {
+        "heading": "Use estar for states and location",
+        "bullets": [
+          "Physical location: Madrid está en España. El gato está en el jardín.",
+          "Temporary states and conditions: La sopa está caliente. La puerta está abierta.",
+          "Feelings and moods: Estoy cansado. Estamos felices.",
+          "Ongoing actions (estar + gerund): Estoy comiendo. Están trabajando."
+        ],
+        "examples": [
+          { "es": "Mi hermana está enferma hoy.", "en": "My sister is sick today.", "note": "temporary condition → estar" },
+          { "es": "Los niños están jugando en el parque.", "en": "The children are playing in the park.", "note": "action in progress → estar + gerund" }
         ]
       },
       {
         "heading": "Same adjective, different meaning",
+        "body": ["This is where the two verbs become a tool: switching ser/estar changes the message."],
         "bullets": [
-          "ser aburrido = to be boring ; estar aburrido = to be bored",
-          "ser listo = to be clever ; estar listo = to be ready"
-        ]
-      }
-    ],
-    "mistakes": [
-      { "wrong": "Soy cansado.", "right": "Estoy cansado.", "note": "Tiredness is a temporary state → estar." },
-      { "wrong": "Madrid es en España.", "right": "Madrid está en España.", "note": "Location always uses estar." }
-    ],
-    "related": ["present-tense", "adjective-agreement"]
-  },
-  {
-    "slug": "tener",
-    "title": "Tener — to have (and useful expressions)",
-    "level": "A1",
-    "category": "Verbs",
-    "summary": "Tener means 'to have', and many feelings that use 'to be' in English use tener in Spanish.",
-    "intro": [
-      "Tener (to have) is one of the most useful verbs in Spanish. It is irregular, and it appears in many fixed expressions where English would use the verb 'to be'.",
-      "For example, you don't say 'I am hungry' — you say 'I have hunger' (tengo hambre)."
-    ],
-    "formula": "tengo, tienes, tiene, tenemos, tenéis, tienen",
-    "sections": [
-      {
-        "heading": "Conjugation",
-        "bullets": [
-          "yo tengo, tú tienes, él/ella tiene",
-          "nosotros tenemos, vosotros tenéis, ellos tienen"
+          "ser aburrido = to be boring · estar aburrido = to be bored",
+          "ser listo = to be clever · estar listo = to be ready",
+          "ser rico = to be rich · estar rico = to taste delicious",
+          "ser guapo = to be good-looking (a trait) · estar guapo = to look great (today)"
+        ],
+        "examples": [
+          { "es": "La película es aburrida, por eso estoy aburrido.", "en": "The film is boring, that's why I'm bored.", "note": "es aburrida (trait) vs estoy aburrido (state)" },
+          { "es": "Esta sopa está muy rica.", "en": "This soup is delicious.", "note": "estar rico = tastes great" }
         ]
       },
       {
-        "heading": "Expressions with tener",
+        "heading": "A useful rule of thumb",
+        "body": ["When you're unsure, ask: is this a defining fact about what it IS, or a state it's IN right now?"],
         "bullets": [
-          "tener hambre / sed = to be hungry / thirsty",
-          "tener frío / calor = to be cold / hot",
-          "tener … años = to be … years old",
-          "tener miedo / razón = to be afraid / right",
-          "tener que + verb = to have to (do something)"
+          "Defining fact → ser (Es médico. La nieve es blanca.)",
+          "Current/changeable state → estar (Está enfermo. El cielo está gris hoy.)",
+          "Location of a thing or person → always estar (even something permanent like a city)"
         ],
         "examples": [
-          { "es": "Tengo veinte años.", "en": "I am twenty years old.", "note": "age uses tener, not ser" },
-          { "es": "Tenemos que estudiar.", "en": "We have to study.", "note": "tener que + infinitive = obligation" }
+          { "es": "El edificio es muy antiguo y está en el centro.", "en": "The building is very old and is in the centre.", "note": "es antiguo (trait) but está en el centro (location)" }
         ]
       }
     ],
     "mistakes": [
-      { "wrong": "Soy hambre.", "right": "Tengo hambre.", "note": "Hunger uses tener: 'I have hunger'." },
-      { "wrong": "Soy treinta años.", "right": "Tengo treinta años.", "note": "Age uses tener, not ser." }
+      { "wrong": "Soy cansado.", "right": "Estoy cansado.", "note": "Tiredness is a state → estar." },
+      { "wrong": "Madrid es en España.", "right": "Madrid está en España.", "note": "Location always uses estar, even for permanent places." },
+      { "wrong": "La fiesta está mañana.", "right": "La fiesta es mañana.", "note": "Events 'take place' → ser, even though it feels like location/time." },
+      { "wrong": "Estoy profesor.", "right": "Soy profesor.", "note": "Profession/identity → ser." }
     ],
-    "related": ["ser-vs-estar", "present-tense"]
+    "related": ["present-tense", "adjective-agreement", "tener"]
+  },
+  {
+    "slug": "tener",
+    "title": "Tener — to have (and key expressions)",
+    "level": "A1",
+    "category": "Verbs",
+    "summary": "Tener means 'to have'. It is irregular, and many feelings that English builds with 'to be' (hungry, cold, afraid, … years old) are built with tener in Spanish.",
+    "intro": [
+      "Tener (to have) is one of the most useful verbs you'll learn, and you'll use it from your very first conversations. It is irregular, so its forms need memorising.",
+      "Beyond simple possession, tener appears in a long list of fixed expressions where English uses the verb 'to be'. You don't say 'I am hungry' — you say 'I have hunger' (tengo hambre). These idioms are extremely common, so learning them early pays off fast.",
+      "One more high-value pattern: tener que + infinitive, which is the everyday way to say 'I have to / I must do something'."
+    ],
+    "formula": "tengo · tienes · tiene · tenemos · tenéis · tienen",
+    "sections": [
+      {
+        "heading": "The forms",
+        "body": ["The yo form (tengo) and the stem change (e→ie) are the irregular parts."],
+        "bullets": [
+          "yo tengo · tú tienes · él/ella/usted tiene",
+          "nosotros tenemos · vosotros tenéis · ellos/ustedes tienen"
+        ],
+        "examples": [
+          { "es": "Tengo dos hermanos.", "en": "I have two brothers.", "note": "tengo = the irregular yo form" },
+          { "es": "¿Tienes tiempo ahora?", "en": "Do you have time now?", "note": "tú → tienes (e→ie)" }
+        ]
+      },
+      {
+        "heading": "Feelings and states with tener",
+        "body": ["These use a noun, not an adjective: literally 'to have hunger', 'to have cold'. Intensify them with mucho/mucha, not muy."],
+        "bullets": [
+          "tener hambre / sed = to be hungry / thirsty",
+          "tener frío / calor = to be cold / hot",
+          "tener sueño = to be sleepy · tener prisa = to be in a hurry",
+          "tener miedo (de) = to be afraid (of) · tener razón = to be right",
+          "tener suerte = to be lucky · tener cuidado = to be careful"
+        ],
+        "examples": [
+          { "es": "Tengo mucha hambre.", "en": "I'm very hungry.", "note": "intensify with mucha (a noun), not muy" },
+          { "es": "Ten cuidado, el suelo está mojado.", "en": "Be careful, the floor is wet.", "note": "tener cuidado = to be careful" }
+        ]
+      },
+      {
+        "heading": "Talking about age",
+        "body": ["Age uses tener, never ser. You literally 'have' a number of years."],
+        "bullets": [
+          "tener … años = to be … years old",
+          "Question: ¿Cuántos años tienes? (How old are you?)"
+        ],
+        "examples": [
+          { "es": "Tengo veinte años.", "en": "I am twenty years old.", "note": "age → tener, not ser" },
+          { "es": "Mi abuela tiene ochenta años.", "en": "My grandmother is eighty.", "note": "tiene + años" }
+        ]
+      },
+      {
+        "heading": "tener que + infinitive = to have to / must",
+        "body": ["This is the standard, everyday way to express obligation. Just add tener que before the base form of another verb."],
+        "bullets": [
+          "Tengo que estudiar. (I have to study.)",
+          "Tienes que llamar a tu madre. (You have to call your mother.)",
+          "Tenemos que salir ahora. (We have to leave now.)"
+        ],
+        "examples": [
+          { "es": "Tengo que trabajar mañana.", "en": "I have to work tomorrow.", "note": "tener que + infinitive = obligation" },
+          { "es": "¿Tienes que irte ya?", "en": "Do you have to leave already?", "note": "question form of obligation" }
+        ]
+      }
+    ],
+    "mistakes": [
+      { "wrong": "Soy hambre.", "right": "Tengo hambre.", "note": "Hunger uses tener: literally 'I have hunger'." },
+      { "wrong": "Soy treinta años.", "right": "Tengo treinta años.", "note": "Age uses tener, not ser." },
+      { "wrong": "Tengo muy hambre.", "right": "Tengo mucha hambre.", "note": "hambre is a noun, so intensify with mucha, not muy." },
+      { "wrong": "Tengo que a estudiar.", "right": "Tengo que estudiar.", "note": "tener que is followed directly by the infinitive — no extra a." }
+    ],
+    "related": ["ser-vs-estar", "present-tense", "gustar"]
   },
   {
     "slug": "gustar",
     "title": "Gustar — saying what you like",
     "level": "A2",
     "category": "Verbs",
-    "summary": "Gustar doesn't work like 'to like' — it literally means 'to be pleasing to', so the grammar is reversed.",
+    "summary": "Gustar doesn't translate as 'to like' — it means 'to be pleasing to'. So the grammar is reversed: the thing you like is the subject, and you become an indirect object (me, te, le…).",
     "intro": [
-      "Gustar confuses learners because it works backwards from English. It really means 'to be pleasing'. So 'I like coffee' is expressed as 'Coffee is pleasing to me' — Me gusta el café.",
-      "This means the thing you like is the subject, and you (the liker) become an indirect object pronoun (me, te, le…)."
+      "Gustar is famous for confusing learners, because it works backwards from English. It literally means 'to be pleasing'. So 'I like coffee' is expressed as 'Coffee is pleasing to me' → Me gusta el café.",
+      "The consequence: the thing being liked is the grammatical subject, so it controls the verb (singular gusta vs plural gustan). The person doing the liking is expressed with an indirect object pronoun (me, te, le, nos, os, les).",
+      "Once this 'flip' clicks, a whole family of verbs opens up — encantar (to love), interesar (to interest), molestar (to bother), doler (to hurt) all work exactly the same way."
     ],
-    "formula": "(a mí) me / te / le / nos / os / les + gusta + singular  •  gustan + plural",
+    "formula": "(a + person) + me/te/le/nos/os/les + gusta + singular thing  •  gustan + plural things",
     "sections": [
       {
-        "heading": "The two forms you need",
+        "heading": "gusta vs gustan — match the thing, not the person",
+        "body": ["The verb agrees with what is liked, because that is the real subject."],
         "bullets": [
-          "gusta — when one thing (or an action) is liked: Me gusta el chocolate.",
-          "gustan — when several things are liked: Me gustan los perros.",
-          "With a verb, always use gusta: Me gusta bailar."
-        ]
-      },
-      {
-        "heading": "The pronouns",
-        "bullets": [
-          "me = to me, te = to you, le = to him/her/you (formal)",
-          "nos = to us, os = to you all, les = to them/you all"
+          "One thing → gusta: Me gusta el chocolate.",
+          "Several things → gustan: Me gustan los perros.",
+          "An action (one or more verbs) → always gusta: Me gusta bailar. Me gusta leer y escribir."
         ],
         "examples": [
           { "es": "Me gusta la música.", "en": "I like music.", "note": "one thing → gusta" },
-          { "es": "Nos gustan las películas.", "en": "We like movies.", "note": "plural thing → gustan" }
+          { "es": "Me gustan los libros de aventuras.", "en": "I like adventure books.", "note": "plural thing → gustan" },
+          { "es": "Me gusta nadar.", "en": "I like to swim.", "note": "an action → gusta (even though you might think plural)" }
         ]
       },
       {
-        "heading": "Adding emphasis or clarity",
-        "body": ["You can add 'a + person' at the start for emphasis or to make 'le/les' clear."],
+        "heading": "The indirect object pronouns (who likes it)",
         "bullets": [
-          "A mí me gusta el té. (I like tea — emphatic)",
-          "A Juan le gusta el fútbol. (Juan likes football.)"
+          "me = to me · te = to you (informal)",
+          "le = to him / her / you (formal)",
+          "nos = to us · os = to you all (Spain)",
+          "les = to them / you all"
+        ],
+        "examples": [
+          { "es": "Nos gusta el cine.", "en": "We like the cinema.", "note": "nos = to us" },
+          { "es": "Les gustan las fiestas.", "en": "They like parties.", "note": "les + gustan (plural thing)" }
+        ]
+      },
+      {
+        "heading": "Adding 'a + person' for emphasis or clarity",
+        "body": ["You can put 'a mí', 'a ti', 'a Juan' etc. at the start. It's required to clarify the vague le/les (which could mean him, her, you, or them), and optional elsewhere for emphasis or contrast."],
+        "bullets": [
+          "A mí me gusta el té. (I like tea — emphatic 'I')",
+          "A Juan le gusta el fútbol. (Juan likes football — clarifies le)",
+          "A mí me gusta el rojo, pero a ti te gusta el azul. (I like red, but you like blue — contrast)"
+        ],
+        "examples": [
+          { "es": "A María le gusta cocinar.", "en": "María likes to cook.", "note": "a María clarifies who 'le' refers to" },
+          { "es": "A mí me gustan los gatos, pero a él le gustan los perros.", "en": "I like cats, but he likes dogs.", "note": "double structure for contrast" }
+        ]
+      },
+      {
+        "heading": "Stronger and related verbs",
+        "body": ["Same backwards structure, different shades of meaning. Note: with encantar you don't add 'muy' — the verb is already strong."],
+        "bullets": [
+          "encantar = to love / really like: Me encanta el chocolate.",
+          "interesar = to interest: Me interesa la historia.",
+          "molestar = to bother: Me molesta el ruido.",
+          "doler = to hurt: Me duele la cabeza. (My head hurts.)"
+        ],
+        "examples": [
+          { "es": "Me encanta viajar.", "en": "I love to travel.", "note": "encantar = strong 'like'; no muy needed" },
+          { "es": "A mi madre le duelen los pies.", "en": "My mother's feet hurt.", "note": "plural body part → duelen" }
         ]
       }
     ],
     "mistakes": [
       { "wrong": "Yo gusto el café.", "right": "Me gusta el café.", "note": "You don't 'do' the liking; the coffee is pleasing to you." },
-      { "wrong": "Me gusta los perros.", "right": "Me gustan los perros.", "note": "A plural thing needs gustan." }
+      { "wrong": "Me gusta los perros.", "right": "Me gustan los perros.", "note": "A plural thing needs gustan." },
+      { "wrong": "Me gusto bailar.", "right": "Me gusta bailar.", "note": "An action takes the singular gusta." },
+      { "wrong": "Me encanta mucho el chocolate.", "right": "Me encanta el chocolate.", "note": "encantar is already strong — don't add mucho/muy." }
     ],
-    "related": ["subject-pronouns", "present-tense"]
+    "related": ["subject-pronouns", "object-pronouns", "present-tense"]
+  },
+  {
+    "slug": "object-pronouns",
+    "title": "Object Pronouns — lo, la, le, me, te…",
+    "level": "A2",
+    "category": "Pronouns",
+    "summary": "Pronouns that replace the person or thing receiving the action. Spanish splits them into direct (lo, la, los, las) and indirect (le, les), and they usually go BEFORE the verb.",
+    "intro": [
+      "Once you can build sentences, you'll want to stop repeating nouns: 'I see the book → I see it'. Those replacement words are object pronouns. Spanish has two sets, and their position is different from English.",
+      "Direct objects answer 'what?' or 'whom?' (the thing directly acted on). Indirect objects answer 'to/for whom?' (the recipient). English often hides this difference; Spanish marks it clearly.",
+      "The golden rule of position: object pronouns normally come immediately BEFORE a conjugated verb — not after it as in English."
+    ],
+    "formula": "pronoun + conjugated verb  (e.g. Lo veo = I see it)",
+    "sections": [
+      {
+        "heading": "Direct object pronouns (the thing acted on)",
+        "bullets": [
+          "me = me · te = you · lo = him/it (masc.) · la = her/it (fem.)",
+          "nos = us · os = you all · los = them (masc.) · las = them (fem.)",
+          "lo/la/los/las must match the gender and number of the noun replaced"
+        ],
+        "examples": [
+          { "es": "¿El libro? Lo tengo aquí.", "en": "The book? I have it here.", "note": "libro → lo (masculine singular)" },
+          { "es": "¿Las llaves? No las veo.", "en": "The keys? I don't see them.", "note": "llaves → las (feminine plural)" }
+        ]
+      },
+      {
+        "heading": "Indirect object pronouns (the recipient)",
+        "body": ["These answer 'to whom / for whom'. Note le and les don't change for gender."],
+        "bullets": [
+          "me = to me · te = to you · le = to him/her/you (formal)",
+          "nos = to us · os = to you all · les = to them/you all",
+          "Spanish often uses BOTH the pronoun and the named person: Le doy el libro a Juan."
+        ],
+        "examples": [
+          { "es": "Te escribo un mensaje.", "en": "I'm writing you a message.", "note": "te = to you (recipient)" },
+          { "es": "Le doy el regalo a mi madre.", "en": "I give the gift to my mother.", "note": "le AND 'a mi madre' both appear — normal in Spanish" }
+        ]
+      },
+      {
+        "heading": "Where the pronoun goes",
+        "body": ["Position is the part English speakers most often get wrong."],
+        "bullets": [
+          "Before a conjugated verb: Lo quiero. (I want it.)",
+          "With an infinitive or gerund, you may attach it to the end: Quiero verlo. / Lo quiero ver. — both correct.",
+          "Attached to affirmative commands: ¡Cómelo! (Eat it!) — but before negative ones: ¡No lo comas!"
+        ],
+        "examples": [
+          { "es": "Voy a llamarte mañana.", "en": "I'm going to call you tomorrow.", "note": "attached to the infinitive: llamar + te" },
+          { "es": "No la conozco.", "en": "I don't know her.", "note": "pronoun before the conjugated verb" }
+        ]
+      },
+      {
+        "heading": "Using both pronouns together (le → se)",
+        "body": ["When an indirect and a direct pronoun meet, the indirect comes first. And if both would start with l- (le lo), the indirect changes to se."],
+        "bullets": [
+          "Order: indirect + direct → Me lo das. (You give it to me.)",
+          "le/les + lo/la/los/las → se lo/la…: Se lo doy. (I give it to him/her.)"
+        ],
+        "examples": [
+          { "es": "¿El libro? Te lo presto.", "en": "The book? I'll lend it to you.", "note": "te (indirect) + lo (direct)" },
+          { "es": "Se lo digo a ella.", "en": "I tell it to her.", "note": "le + lo becomes se lo" }
+        ]
+      }
+    ],
+    "mistakes": [
+      { "wrong": "Veo lo.", "right": "Lo veo.", "note": "The pronoun goes before the conjugated verb." },
+      { "wrong": "Le lo doy.", "right": "Se lo doy.", "note": "le + lo always becomes se lo." },
+      { "wrong": "¿Las llaves? No los veo.", "right": "No las veo.", "note": "The pronoun must match gender: llaves (fem.) → las." }
+    ],
+    "related": ["subject-pronouns", "gustar", "present-tense"]
   },
   {
     "slug": "adjective-agreement",
     "title": "Adjective Agreement",
     "level": "A1",
     "category": "Adjectives",
-    "summary": "Adjectives change their ending to match the gender and number of the noun, and usually come after it.",
+    "summary": "Adjectives change their ending to match the noun's gender and number, and most of them come AFTER the noun. A few short ones change form when they go before it.",
     "intro": [
-      "In Spanish, adjectives agree with the noun they describe in both gender and number. They also usually go after the noun, not before it as in English.",
-      "So 'a red car' becomes un coche rojo, and 'red cars' becomes coches rojos."
+      "In Spanish, an adjective is not a fixed word — it bends to match the noun it describes, in both gender and number. So 'red' is rojo, roja, rojos, or rojas depending on what it describes.",
+      "Position is the other surprise for English speakers: descriptive adjectives normally come AFTER the noun. 'A red car' is un coche rojo (literally 'a car red'), and 'an interesting book' is un libro interesante.",
+      "Get agreement right and your Spanish instantly sounds more natural; get it wrong and even simple sentences feel off."
     ],
-    "formula": "noun + adjective (matching gender + number)",
+    "formula": "noun + adjective, matching gender + number",
     "sections": [
       {
-        "heading": "Adjectives ending in -o",
-        "body": ["These have four forms."],
+        "heading": "Adjectives ending in -o have four forms",
         "bullets": [
           "masculine singular: rojo → el coche rojo",
           "feminine singular: roja → la casa roja",
           "masculine plural: rojos → los coches rojos",
           "feminine plural: rojas → las casas rojas"
+        ],
+        "examples": [
+          { "es": "El coche rojo y la casa roja son de mi tío.", "en": "The red car and the red house belong to my uncle.", "note": "rojo/roja agree with coche (m.) and casa (f.)" },
+          { "es": "Tengo unos zapatos negros.", "en": "I have some black shoes.", "note": "zapatos → masculine plural → negros" }
         ]
       },
       {
         "heading": "Adjectives ending in -e or a consonant",
-        "body": ["These don't change for gender, only for number."],
+        "body": ["These do NOT change for gender — only for number. That makes them easier."],
         "bullets": [
-          "grande → un libro grande, una casa grande",
-          "plural: grandes, azules, fáciles (add -s or -es)"
+          "-e: grande → un libro grande, una casa grande (no gender change)",
+          "Plural of -e: add -s → libros grandes, casas grandes",
+          "Consonant ending: azul → un coche azul, una flor azul; plural azules",
+          "Exception — nationality adjectives ending in a consonant DO add -a for feminine: español → española, francés → francesa"
         ],
         "examples": [
-          { "es": "Una flor blanca.", "en": "A white flower.", "note": "flor is feminine → blanca" },
-          { "es": "Unos libros interesantes.", "en": "Some interesting books.", "note": "-e adjective → only plural changes" }
+          { "es": "Una idea interesante y unos planes interesantes.", "en": "An interesting idea and some interesting plans.", "note": "-e adjective: only number changes" },
+          { "es": "Ella es española y él es francés.", "en": "She is Spanish and he is French.", "note": "nationality: española (fem.), francés (masc.)" }
         ]
       },
       {
-        "heading": "Position",
-        "body": ["Most descriptive adjectives follow the noun. A few common ones (bueno, malo) can go before and shorten: buen, mal."],
+        "heading": "Position: usually after the noun",
+        "body": ["Most adjectives follow the noun. A small group of common ones can go before, sometimes with a shift in meaning."],
         "bullets": [
-          "un buen amigo (a good friend) — bueno → buen before a masculine noun"
+          "Normal descriptive position: una película interesante, un día largo",
+          "Numbers and quantity words go before: tres libros, muchas personas, otra vez",
+          "Some change meaning by position: un viejo amigo (a long-standing friend) vs un amigo viejo (an elderly friend); un gran hombre (a great man) vs un hombre grande (a big man)"
+        ],
+        "examples": [
+          { "es": "Es un gran profesor.", "en": "He is a great teacher.", "note": "grande → gran before the noun, meaning 'great'" },
+          { "es": "Vivo en una casa grande.", "en": "I live in a big house.", "note": "after the noun, grande means physical size" }
+        ]
+      },
+      {
+        "heading": "Adjectives that shorten before a masculine noun",
+        "body": ["A few high-frequency adjectives drop their final -o right before a masculine singular noun."],
+        "bullets": [
+          "bueno → buen: un buen amigo (a good friend)",
+          "malo → mal: un mal día (a bad day)",
+          "primero → primer, tercero → tercer: el primer día, el tercer piso",
+          "grande → gran (before ANY singular noun, m. or f.): una gran idea"
+        ],
+        "examples": [
+          { "es": "Hoy es un buen día.", "en": "Today is a good day.", "note": "bueno → buen before a masculine singular noun" },
+          { "es": "Es el primer libro de la serie.", "en": "It's the first book in the series.", "note": "primero → primer" }
         ]
       }
     ],
     "mistakes": [
       { "wrong": "una casa rojo", "right": "una casa roja", "note": "casa is feminine, so the adjective must be roja." },
-      { "wrong": "los coches rojo", "right": "los coches rojos", "note": "Plural noun → plural adjective." }
+      { "wrong": "los coches rojo", "right": "los coches rojos", "note": "Plural noun needs a plural adjective." },
+      { "wrong": "un rojo coche", "right": "un coche rojo", "note": "Descriptive adjectives normally follow the noun." },
+      { "wrong": "un bueno amigo", "right": "un buen amigo", "note": "bueno shortens to buen before a masculine singular noun." }
     ],
-    "related": ["nouns-gender", "ser-vs-estar"]
+    "related": ["nouns-gender", "plurals-es", "ser-vs-estar"]
   }
 ]
