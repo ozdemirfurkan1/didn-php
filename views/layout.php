@@ -9,6 +9,7 @@ declare(strict_types=1);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
     <?php
     $metaDesc = trim((string) ($description ?? ''));
     if ($metaDesc === '') {
@@ -68,6 +69,7 @@ declare(strict_types=1);
                 <?php else: ?>
                     <a href="/giris">Giriş</a>
                 <?php endif; ?>
+                <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Açık/koyu tema">🌙</button>
             </nav>
         </div>
     </header>
@@ -86,5 +88,25 @@ declare(strict_types=1);
             </p>
         </div>
     </footer>
+
+    <script>
+    (function () {
+        var btn = document.getElementById('theme-toggle');
+        if (!btn) { return; }
+        function current() {
+            var t = document.documentElement.getAttribute('data-theme');
+            if (t === 'dark' || t === 'light') { return t; }
+            return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        function syncIcon() { btn.textContent = current() === 'dark' ? '☀️' : '🌙'; }
+        syncIcon();
+        btn.addEventListener('click', function () {
+            var next = current() === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            try { localStorage.setItem('theme', next); } catch (e) {}
+            syncIcon();
+        });
+    })();
+    </script>
 </body>
 </html>
