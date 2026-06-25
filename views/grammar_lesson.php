@@ -66,6 +66,18 @@ $nextLesson = ($curIdx !== null && $curIdx < count($allLessons) - 1) ? $allLesso
         </section>
     <?php endif; ?>
 
+    <?php if (!empty($lesson['signalWords'])): ?>
+        <section class="lesson-section card">
+            <h2><?= e($lbl['signalWords']) ?></h2>
+            <p class="grammar-hint-desc">Bu zamanı tanımana yardımcı olan ipucu kelimeler:</p>
+            <div class="chips">
+                <?php foreach ($lesson['signalWords'] as $sw): ?>
+                    <span class="chip"><?= e($sw) ?></span>
+                <?php endforeach; ?>
+            </div>
+        </section>
+    <?php endif; ?>
+
     <?php foreach (($lesson['sections'] ?? []) as $section): ?>
         <section class="lesson-section card">
             <h2><?= e($section['heading']) ?></h2>
@@ -150,6 +162,29 @@ $nextLesson = ($curIdx !== null && $curIdx < count($allLessons) - 1) ? $allLesso
             });
         });
         </script>
+    <?php endif; ?>
+
+    <?php if (!empty($lesson['faq'])): ?>
+        <section class="lesson-section card">
+            <h2><?= e($lbl['faq']) ?></h2>
+            <div class="faq">
+                <?php foreach ($lesson['faq'] as $item): ?>
+                    <details class="faq-item">
+                        <summary><?= e($item['q'] ?? '') ?></summary>
+                        <p><?= e($item['a'] ?? '') ?></p>
+                    </details>
+                <?php endforeach; ?>
+            </div>
+        </section>
+        <script type="application/ld+json"><?= json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            'mainEntity' => array_map(fn($f) => [
+                '@type' => 'Question',
+                'name' => $f['q'] ?? '',
+                'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a'] ?? ''],
+            ], $lesson['faq']),
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) ?></script>
     <?php endif; ?>
 
     <?php

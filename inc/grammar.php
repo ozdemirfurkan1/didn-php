@@ -41,6 +41,8 @@ function grammar_tracks(): array
                 'formTable'  => 'Çekim tablosu',
                 'prev'       => 'Önceki',
                 'next'       => 'Sonraki',
+                'signalWords' => 'Sinyal kelimeler',
+                'faq'        => 'Sık sorulan sorular',
             ],
         ],
         // İngilizce konuşan → İspanyolca öğrenir (yeni, /es/grammar).
@@ -64,6 +66,8 @@ function grammar_tracks(): array
                 'formTable'  => 'Forms at a glance',
                 'prev'       => 'Previous',
                 'next'       => 'Next',
+                'signalWords' => 'Signal words',
+                'faq'        => 'Frequently asked questions',
             ],
         ],
     ];

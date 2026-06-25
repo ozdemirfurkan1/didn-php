@@ -250,6 +250,14 @@ audio { height: 32px; }
 .conj-irr { background: var(--primary-soft); color: var(--primary); }
 .conj-reg { background: var(--surface-2); color: var(--muted); }
 
+/* Sık sorulan sorular (akordeon) */
+.faq-item { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; background: var(--bg); }
+.faq-item summary { cursor: pointer; padding: 12px 14px; font-weight: 600; list-style: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::before { content: "＋"; color: var(--primary); margin-right: 8px; font-weight: 700; }
+.faq-item[open] summary::before { content: "－"; }
+.faq-item p { margin: 0; padding: 0 14px 14px; color: var(--fg); }
+
 /* Sonuç ızgarası — çeviriler solda, tanım/eş-zıt sağda */
 .result-grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; align-items: start; }
 .result-grid.single { grid-template-columns: 1fr; }
