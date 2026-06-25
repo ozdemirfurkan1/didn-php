@@ -113,6 +113,92 @@ function find_translations(string $word, string $direction): array
     return ['headword' => $headword, 'entries' => $ranked];
 }
 
+// --- Dil yönü otomatik algılama --------------------------------------------
+
+// Verilen kelime ilgili dilin sözlüğünde başlık olarak var mı? Kolonların
+// utf8mb4_turkish_ci collation'ı sayesinde eşleşme büyük/küçük harf duyarsız.
+function word_exists(string $lang, string $word): bool
+{
+    $w = trim($word);
+    if ($w === '') {
+        return false;
+    }
+    $table = $lang === 'tr' ? 'turkish' : 'english';
+    $stmt  = db()->prepare("SELECT 1 FROM `$table` WHERE word = :w LIMIT 1");
+    $stmt->execute([':w' => $w]);
+    return (bool) $stmt->fetchColumn();
+}
+
+// Kelimeye bakıp arama yönünü ('en-tr' / 'tr-en') tahmin eder.
+// Önce sözlükte hangi dilde karşılığı olduğuna bakar; kararsız kalırsa
+// Türkçeye özgü harfleri ipucu olarak kullanır.
+function detect_direction(string $word): string
+{
+    $w = trim($word);
+    if ($w === '') {
+        return 'en-tr';
+    }
+    $hasEn = word_exists('en', $w);
+    $hasTr = word_exists('tr', $w);
+    if ($hasEn && !$hasTr) {
+        return 'en-tr';
+    }
+    if ($hasTr && !$hasEn) {
+        return 'tr-en';
+    }
+    // İkisinde de var ya da ikisinde de yok: Türkçe karakter varsa TR kabul et.
+    if (preg_match('/[çşğıöüÇŞĞİÖÜ]/u', $w)) {
+        return 'tr-en';
+    }
+    return 'en-tr';
+}
+
+// --- Otomatik tamamlama önerileri ------------------------------------------
+
+// 'q' önekiyle başlayan kelimeleri english + turkish tablolarından getirir.
+// Her öneri kendi dilini taşır ki tıklanınca doğru URL'ye (/en/ veya /tr/) gidilsin.
+function suggest_words(string $q, int $limit = 8): array
+{
+    $q = trim($q);
+    if (mb_strlen($q, 'UTF-8') < 2) {
+        return [];
+    }
+    $limit = max(1, min(20, $limit));
+    // LIKE özel karakterlerini kaçır (% ve _ ile sorgu yapılmasını engelle).
+    $like = addcslashes($q, '%_\\') . '%';
+
+    $rows = [];
+    foreach (['en' => 'english', 'tr' => 'turkish'] as $lang => $table) {
+        // Önce tam önek eşleşmeleri, kısa kelimeler önce (daha alakalı).
+        $sql  = "SELECT DISTINCT word FROM `$table`
+                 WHERE word LIKE :p AND word <> '' AND word NOT LIKE '%/%'
+                 ORDER BY CHAR_LENGTH(word) ASC, word ASC
+                 LIMIT " . ($limit + 4);
+        $stmt = db()->prepare($sql);
+        $stmt->execute([':p' => $like]);
+        foreach ($stmt->fetchAll(PDO::FETCH_COLUMN) as $w) {
+            $rows[] = ['word' => $w, 'lang' => $lang];
+        }
+    }
+
+    // İki dildeki sonuçları birleştirip uzunluğa göre sırala, tekilleştir.
+    usort($rows, fn($a, $b) => mb_strlen($a['word'], 'UTF-8') - mb_strlen($b['word'], 'UTF-8'));
+    $seen = [];
+    $out  = [];
+    foreach ($rows as $r) {
+        $k = mb_strtolower($r['word'], 'UTF-8') . '|' . $r['lang'];
+        if (isset($seen[$k])) {
+            continue;
+        }
+        $seen[$k] = true;
+        $out[]    = $r;
+        if (count($out) >= $limit) {
+            break;
+        }
+    }
+    return $out;
+}
+
 // Kaikki/Wiktionary tablolarından (word_details/sense/relation) bir İngilizce
 // kelimenin tanım, telaffuz, örnek ve eş/zıt anlamlarını toplar.
 function get_english_details(string $word): ?array

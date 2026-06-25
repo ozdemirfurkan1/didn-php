@@ -2,7 +2,7 @@
 <section class="hero">
     <h1>İngilizce ↔ Türkçe Sözlük</h1>
     <p class="hero-sub">Bir kelime ara; anlamı, çevirileri, telaffuzu ve örnek cümleleriyle.</p>
-    <?php $curQ = ''; $curDir = 'en-tr'; include __DIR__ . '/_search.php'; ?>
+    <?php $curQ = ''; $curDir = 'auto'; include __DIR__ . '/_search.php'; ?>
 </section>
 
 <?php if (!empty($wotd)): ?>

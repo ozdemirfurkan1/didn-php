@@ -150,12 +150,26 @@ if ($uri === '/deyimler') {
     exit;
 }
 
-// Arama formu: /ara?q=...&dir=en-tr  ->  /en/{kelime} ya da /tr/{kelime}
+// Otomatik tamamlama: /api/suggest?q=...  -> [{word, lang}]
+if ($uri === '/api/suggest') {
+    header('Content-Type: application/json; charset=utf-8');
+    $q = trim($_GET['q'] ?? '');
+    echo json_encode(suggest_words($q, 8), JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+// Arama formu: /ara?q=...&dir=auto|en-tr|tr-en  ->  /en/{kelime} ya da /tr/{kelime}
 if ($uri === '/ara') {
-    $q   = trim($_GET['q'] ?? '');
-    $dir = ($_GET['dir'] ?? 'en-tr') === 'tr-en' ? 'tr-en' : 'en-tr';
+    $q        = trim($_GET['q'] ?? '');
+    $dirParam = $_GET['dir'] ?? 'auto';
     if ($q === '') {
         redirect('/');
+    }
+    // Kullanıcı yön seçtiyse ona saygı duy; aksi halde otomatik algıla.
+    if ($dirParam === 'en-tr' || $dirParam === 'tr-en') {
+        $dir = $dirParam;
+    } else {
+        $dir = detect_direction($q);
     }
     $prefix = $dir === 'en-tr' ? '/en/' : '/tr/';
     redirect($prefix . rawurlencode($q));

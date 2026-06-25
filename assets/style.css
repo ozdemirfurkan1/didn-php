@@ -119,9 +119,24 @@ a:hover { text-decoration: underline; }
 .hero-sub { color: var(--muted); margin: 0 auto 24px; max-width: 460px; }
 
 .search-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 24px; }
+.search-field { position: relative; flex: 1 1 240px; min-width: 0; }
 .search-box input[type="text"] {
-    flex: 1 1 240px; min-width: 0; font-size: 16px; padding: 12px 14px;
+    width: 100%; min-width: 0; font-size: 16px; padding: 12px 14px;
     border: 1px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--fg); outline: none;
+}
+.suggest-list {
+    position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 30;
+    margin: 0; padding: 6px; list-style: none; max-height: 320px; overflow-y: auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow);
+}
+.suggest-list li {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 15px; color: var(--fg);
+}
+.suggest-list li.active, .suggest-list li:hover { background: var(--primary-soft); }
+.suggest-list .sg-tag {
+    flex-shrink: 0; font-size: 11px; font-weight: 700; color: var(--muted);
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 2px 6px;
 }
 .search-box input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
 .search-box button {
