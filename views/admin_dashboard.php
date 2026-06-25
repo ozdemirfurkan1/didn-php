@@ -15,6 +15,12 @@
                 <?= !empty($cfg['enabled']) ? '<span class="ok-text">• Otomatik açık</span>' : '' ?></p>
         </a>
     <?php endforeach; ?>
+    <a class="admin-card card" href="/admin/geri-bildirim">
+        <h2>Geri Bildirimler
+            <?php if (!empty($feedbackUnread)): ?><span class="fb-badge"><?= e((string) $feedbackUnread) ?></span><?php endif; ?>
+        </h2>
+        <p>Kullanıcılardan gelen öneri, şikayet ve destek mesajları.</p>
+    </a>
     <a class="admin-card card" href="/admin/ayarlar">
         <h2>Ayarlar</h2>
         <p>OpenAI API anahtarı ve yönetici şifresi. Anahtar yalnızca sunucuda.</p>

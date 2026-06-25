@@ -486,3 +486,55 @@ audio { height: 32px; }
 .article-body p { margin: 0 0 14px; color: var(--fg); }
 .article-body ul { margin: 0 0 14px; padding-left: 22px; color: var(--fg); }
 .article-body li { margin-bottom: 6px; }
+
+/* --- Bize Yazın (iletişim formu) --- */
+.home-contact { padding: 24px; margin-top: 24px; }
+.home-contact-title { margin: 0 0 4px; font-size: 20px; }
+.home-contact-sub { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+.contact-form { display: flex; flex-direction: column; gap: 14px; }
+.contact-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.contact-row .contact-field { flex: 1 1 180px; }
+.contact-field { display: flex; flex-direction: column; gap: 6px; }
+.contact-field > span { font-size: 13px; font-weight: 600; color: var(--fg); }
+.contact-field > span small { font-weight: 400; color: var(--muted); }
+.contact-field input, .contact-field select, .contact-field textarea {
+    font-size: 15px; padding: 11px 13px; border: 1px solid var(--border);
+    border-radius: 10px; background: var(--bg); color: var(--fg); outline: none; width: 100%;
+}
+.contact-field textarea { resize: vertical; min-height: 96px; }
+.contact-field input:focus, .contact-field select:focus, .contact-field textarea:focus {
+    border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft);
+}
+.contact-actions { display: flex; justify-content: flex-end; }
+.contact-actions button {
+    font-size: 15px; font-weight: 600; padding: 11px 26px; border: 0; border-radius: 10px;
+    background: var(--primary); color: var(--primary-fg); cursor: pointer;
+}
+.contact-actions button:hover { background: var(--primary-hover); }
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+/* --- Admin: geri bildirim listesi --- */
+.fb-badge {
+    display: inline-block; min-width: 20px; padding: 1px 7px; margin-left: 6px;
+    font-size: 12px; font-weight: 700; text-align: center; line-height: 18px;
+    color: #fff; background: var(--danger); border-radius: 999px; vertical-align: middle;
+}
+.fb-list { display: flex; flex-direction: column; gap: 12px; }
+.fb-item { padding: 16px; }
+.fb-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.fb-type {
+    font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+    background: var(--primary-soft); color: var(--primary);
+}
+.fb-type-sikayet { background: #fee2e2; color: #b91c1c; }
+.fb-type-destek  { background: #dcfce7; color: #15803d; }
+.fb-type-diger   { background: var(--bg); color: var(--muted); }
+.fb-date { font-size: 13px; color: var(--muted); }
+.fb-msg { margin: 0 0 12px; color: var(--fg); white-space: pre-wrap; }
+.fb-meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.fb-del { margin-left: auto; }
+.fb-del button {
+    font-size: 13px; font-weight: 600; padding: 6px 14px; border: 1px solid var(--border);
+    border-radius: 8px; background: var(--bg); color: var(--danger); cursor: pointer;
+}
+.fb-del button:hover { border-color: var(--danger); }

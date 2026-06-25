@@ -80,3 +80,39 @@
         </a>
     </div>
 </section>
+
+<section class="home-contact card" id="bize-yazin">
+    <h2 class="home-contact-title">Bize Yazın</h2>
+    <p class="home-contact-sub">Öneri, şikayet veya bir hata mı var? Gelişmemize yardımcı ol — her mesajı okuyoruz.</p>
+    <?php include __DIR__ . '/_flash.php'; ?>
+    <form class="contact-form" method="post" action="/geri-bildirim">
+        <?= csrf_field() ?>
+        <div class="contact-row">
+            <label class="contact-field">
+                <span>Konu</span>
+                <select name="type">
+                    <?php foreach (FEEDBACK_TYPES as $val => $label): ?>
+                        <option value="<?= e($val) ?>"><?= e($label) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+            <label class="contact-field">
+                <span>Adın <small>(isteğe bağlı)</small></span>
+                <input type="text" name="name" maxlength="190" placeholder="Adın">
+            </label>
+            <label class="contact-field">
+                <span>E-posta <small>(isteğe bağlı)</small></span>
+                <input type="email" name="email" maxlength="255" placeholder="ornek@eposta.com">
+            </label>
+        </div>
+        <label class="contact-field">
+            <span>Mesajın</span>
+            <textarea name="message" rows="4" maxlength="4000" required placeholder="Mesajını buraya yaz…"></textarea>
+        </label>
+        <!-- bal küpü: gizli, gerçek kullanıcı doldurmaz -->
+        <input type="text" name="website" tabindex="-1" autocomplete="off" class="hp-field" aria-hidden="true">
+        <div class="contact-actions">
+            <button type="submit">Gönder</button>
+        </div>
+    </form>
+</section>

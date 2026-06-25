@@ -13,6 +13,7 @@ require __DIR__ . '/inc/content.php';
 require __DIR__ . '/inc/openai.php';
 require __DIR__ . '/inc/blog-generator.php';
 require __DIR__ . '/inc/saved.php';
+require __DIR__ . '/inc/feedback.php';
 
 // Oturumu en başta başlat (çerez henüz çıktı olmadan gönderilsin).
 start_session();
@@ -176,6 +177,35 @@ if ($uri === '/ara') {
 }
 
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+
+// --- Geri bildirim (Bize Yazın) -------------------------------------------
+
+if ($uri === '/geri-bildirim' && $method === 'POST') {
+    if (!csrf_check()) {
+        set_flash('Oturum süresi doldu, tekrar deneyin.', 'error');
+        redirect('/#bize-yazin');
+    }
+    // Bal küpü: botlar bu gizli alanı doldurur, gerçek kullanıcı görmez.
+    if (trim($_POST['website'] ?? '') !== '') {
+        redirect('/#bize-yazin');
+    }
+    $type    = trim($_POST['type'] ?? 'oneri');
+    $name    = trim($_POST['name'] ?? '');
+    $email   = trim($_POST['email'] ?? '');
+    $message = trim($_POST['message'] ?? '');
+    if (mb_strlen($message, 'UTF-8') < 3) {
+        set_flash('Lütfen mesajınızı yazın.', 'error');
+        redirect('/#bize-yazin');
+    }
+    if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        set_flash('E-posta adresi geçersiz görünüyor.', 'error');
+        redirect('/#bize-yazin');
+    }
+    $cu = current_user();
+    save_feedback($type, $name, $email, $message, isset($cu['id']) ? (int) $cu['id'] : null);
+    set_flash('Teşekkürler! Mesajın bize ulaştı. 🙌');
+    redirect('/#bize-yazin');
+}
 
 // --- Kimlik doğrulama -----------------------------------------------------
 
@@ -345,7 +375,30 @@ if (($segments[0] ?? '') === 'admin') {
 
     // Pano
     if ($sub === '') {
-        render('admin_dashboard', ['title' => 'Yönetim Paneli — DiDn']);
+        render('admin_dashboard', [
+            'feedbackUnread' => feedback_unread_count(),
+            'title'          => 'Yönetim Paneli — DiDn',
+        ]);
+        exit;
+    }
+
+    // Geri bildirimler
+    if ($sub === 'geri-bildirim') {
+        if ($method === 'POST') {
+            if (!csrf_check()) {
+                set_flash('Oturum süresi doldu, tekrar deneyin.', 'error');
+                redirect('/admin/geri-bildirim');
+            }
+            $del = (int) ($_POST['delete'] ?? 0);
+            if ($del > 0) {
+                delete_feedback($del);
+                set_flash('Mesaj silindi.');
+            }
+            redirect('/admin/geri-bildirim');
+        }
+        $items = recent_feedback(200);
+        mark_all_feedback_read(); // listeyi açınca okundu say
+        render('admin_feedback', ['items' => $items, 'title' => 'Geri Bildirimler — DiDn']);
         exit;
     }
 
