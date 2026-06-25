@@ -326,3 +326,38 @@ function group_translations_by_type(array $entries): array
     }
     return $groups;
 }
+
+// --- Sitemap için sözlük kelime listesi ------------------------------------
+// Yalnızca en az bir çevirisi olan ve tek URL segmentine sığan kelimeler.
+
+function dictionary_word_count(string $lang): int
+{
+    if ($lang === 'tr') {
+        $sql = "SELECT COUNT(DISTINCT tr.word) FROM turkish tr
+                JOIN translate t ON t.turkish_id = tr.id
+                WHERE tr.word <> '' AND tr.word NOT LIKE '%/%'";
+    } else {
+        $sql = "SELECT COUNT(DISTINCT e.word) FROM english e
+                JOIN translate t ON t.english_id = e.id
+                WHERE e.word <> '' AND e.word NOT LIKE '%/%'";
+    }
+    return (int) db()->query($sql)->fetchColumn();
+}
+
+function dictionary_words(string $lang, int $offset, int $limit): array
+{
+    $offset = max(0, $offset);
+    $limit  = max(1, $limit);
+    if ($lang === 'tr') {
+        $sql = "SELECT DISTINCT tr.word AS word FROM turkish tr
+                JOIN translate t ON t.turkish_id = tr.id
+                WHERE tr.word <> '' AND tr.word NOT LIKE '%/%'
+                ORDER BY tr.word LIMIT $offset, $limit";
+    } else {
+        $sql = "SELECT DISTINCT e.word AS word FROM english e
+                JOIN translate t ON t.english_id = e.id
+                WHERE e.word <> '' AND e.word NOT LIKE '%/%'
+                ORDER BY e.word LIMIT $offset, $limit";
+    }
+    return array_map(fn($r) => (string) $r['word'], db()->query($sql)->fetchAll());
+}

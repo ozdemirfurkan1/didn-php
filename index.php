@@ -61,7 +61,17 @@ if ($uri === '/cron/generate-blog') {
 // SEO: sitemap ve robots (oturum/yetki gerektirmez)
 if ($uri === '/sitemap.xml') {
     header('Content-Type: application/xml; charset=utf-8');
-    echo build_sitemap();
+    echo build_sitemap_index();
+    exit;
+}
+if ($uri === '/sitemap-pages.xml') {
+    header('Content-Type: application/xml; charset=utf-8');
+    echo build_pages_sitemap();
+    exit;
+}
+if (preg_match('#^/sitemap-(en|tr)-(\d+)\.xml$#', $uri, $smMatch)) {
+    header('Content-Type: application/xml; charset=utf-8');
+    echo build_words_sitemap($smMatch[1], (int) $smMatch[2]);
     exit;
 }
 if ($uri === '/robots.txt') {
@@ -71,7 +81,21 @@ if ($uri === '/robots.txt') {
 }
 
 if ($uri === '/') {
-    render('home', ['wotd' => get_word_of_the_day()]);
+    render('home', [
+        'wotd' => get_word_of_the_day(),
+        'jsonLd' => [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            'name' => 'DiDn',
+            'url' => site_base_url(),
+            'inLanguage' => 'tr',
+            'potentialAction' => [
+                '@type' => 'SearchAction',
+                'target' => ['@type' => 'EntryPoint', 'urlTemplate' => site_base_url() . '/ara?q={search_term_string}'],
+                'query-input' => 'required name=search_term_string',
+            ],
+        ],
+    ]);
     exit;
 }
 
@@ -435,6 +459,21 @@ foreach ($grammarRoutes as $path => $trackKey) {
                 'title'  => $lesson['title'] . ' — DiDn',
                 'description' => $lesson['summary'] ?? '',
                 'ogType' => 'article',
+                'jsonLd' => [
+                    '@context' => 'https://schema.org',
+                    '@type' => 'LearningResource',
+                    'name' => $lesson['title'],
+                    'description' => $lesson['summary'] ?? '',
+                    'url' => current_canonical(),
+                    'inLanguage' => $t['native'],
+                    'learningResourceType' => 'Grammar lesson',
+                    'educationalLevel' => $lesson['level'] ?? '',
+                    'isPartOf' => [
+                        '@type' => 'Course',
+                        'name' => $t['labels']['indexTitle'] ?? 'Gramer',
+                        'url' => site_base_url() . $t['base'],
+                    ],
+                ],
             ]);
             exit;
         }
@@ -463,7 +502,27 @@ if (isset($publicRoutes[$segments[0] ?? ''])) {
             $preview = true;
         }
         if ($item) {
-            render('content_article', ['item' => $item, 'preview' => $preview, 'title' => $item['title'] . ' — DiDn', 'description' => $item['summary'] ?? '', 'ogType' => 'article']);
+            $artDate = $item['published_at'] ?? $item['created_at'] ?? null;
+            $artMod  = (!empty($item['updated_at']) ? $item['updated_at'] : $artDate);
+            render('content_article', [
+                'item' => $item,
+                'preview' => $preview,
+                'title' => $item['title'] . ' — DiDn',
+                'description' => $item['summary'] ?? '',
+                'ogType' => 'article',
+                'jsonLd' => [
+                    '@context' => 'https://schema.org',
+                    '@type' => 'Article',
+                    'headline' => $item['title'],
+                    'description' => $item['summary'] ?? '',
+                    'datePublished' => $artDate ? date('c', strtotime($artDate)) : null,
+                    'dateModified' => $artMod ? date('c', strtotime($artMod)) : null,
+                    'inLanguage' => 'tr',
+                    'url' => current_canonical(),
+                    'author' => ['@type' => 'Organization', 'name' => 'DiDn'],
+                    'publisher' => ['@type' => 'Organization', 'name' => 'DiDn'],
+                ],
+            ]);
             exit;
         }
         http_response_code(404);
@@ -477,12 +536,27 @@ if (count($segments) === 2 && ($segments[0] === 'en' || $segments[0] === 'tr')) 
     $dir    = $segments[0] === 'en' ? 'en-tr' : 'tr-en';
     $word   = $segments[1];
     $result = lookup_word($word, $dir);
+    $wordDesc  = '“' . $word . '” kelimesinin ' . ($dir === 'en-tr' ? 'Türkçe' : 'İngilizce') . ' karşılığı, anlamı ve çevirisi — DiDn İngilizce ↔ Türkçe Sözlük.';
+    $wordJsonLd = empty($result['error']) ? [
+        '@context' => 'https://schema.org',
+        '@type' => 'DefinedTerm',
+        'name' => $word,
+        'description' => $wordDesc,
+        'url' => current_canonical(),
+        'inLanguage' => $dir === 'en-tr' ? 'en' : 'tr',
+        'inDefinedTermSet' => [
+            '@type' => 'DefinedTermSet',
+            'name' => 'DiDn İngilizce ↔ Türkçe Sözlük',
+            'url' => site_base_url(),
+        ],
+    ] : null;
     render('word', [
         'result' => $result,
         'word'   => $word,
         'dir'    => $dir,
         'title'  => $word . ' — DiDn Sözlük',
-        'description' => '“' . $word . '” kelimesinin ' . ($dir === 'en-tr' ? 'Türkçe' : 'İngilizce') . ' karşılığı, anlamı ve çevirisi — DiDn İngilizce ↔ Türkçe Sözlük.',
+        'description' => $wordDesc,
+        'jsonLd' => $wordJsonLd,
     ]);
     exit;
 }

@@ -53,6 +53,9 @@ function slugify(string $input): string
 
 // --- SEO: site kök URL'si ve sitemap üretimi -------------------------------
 
+// Tek sitemap dosyasına sığacak azami URL sayısı (Google sınırı 50.000).
+const SITEMAP_CHUNK = 40000;
+
 // İsteğe göre mutlak kök URL (örn. https://didn.net). Sitemap/canonical için.
 function site_base_url(): string
 {
@@ -64,8 +67,54 @@ function site_base_url(): string
     return $scheme . '://' . $host;
 }
 
-// Tüm önemli sayfaları içeren sitemap XML'i üretir (statik + gramer + içerik).
-function build_sitemap(): string
+// Geçerli isteğin canonical URL'si (sorgu dizesi olmadan).
+function current_canonical(): string
+{
+    return site_base_url() . strtok($_SERVER['REQUEST_URI'] ?? '/', '?');
+}
+
+// Sitemap index: sayfa sitemap'i + sözlük kelime chunk'larını listeler.
+function build_sitemap_index(): string
+{
+    $base = site_base_url();
+    $maps = ['/sitemap-pages.xml'];
+    try {
+        foreach (['en', 'tr'] as $lang) {
+            $pages = (int) ceil(dictionary_word_count($lang) / SITEMAP_CHUNK);
+            for ($i = 1; $i <= $pages; $i++) {
+                $maps[] = "/sitemap-$lang-$i.xml";
+            }
+        }
+    } catch (Throwable $e) {
+        // DB yoksa yalnızca sayfa sitemap'i listelenir.
+    }
+    $xml  = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    foreach ($maps as $m) {
+        $xml .= '  <sitemap><loc>' . htmlspecialchars($base . $m, ENT_XML1, 'UTF-8') . '</loc></sitemap>' . "\n";
+    }
+    $xml .= '</sitemapindex>' . "\n";
+    return $xml;
+}
+
+// Sözlük kelimelerinin bir chunk'ı için sitemap (lang: en|tr, page: 1..N).
+function build_words_sitemap(string $lang, int $page): string
+{
+    $base   = site_base_url();
+    $prefix = $lang === 'tr' ? '/tr/' : '/en/';
+    $words  = dictionary_words($lang, ($page - 1) * SITEMAP_CHUNK, SITEMAP_CHUNK);
+    $xml    = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml   .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    foreach ($words as $w) {
+        $loc  = $base . $prefix . rawurlencode($w);
+        $xml .= '  <url><loc>' . htmlspecialchars($loc, ENT_XML1, 'UTF-8') . '</loc></url>' . "\n";
+    }
+    $xml .= '</urlset>' . "\n";
+    return $xml;
+}
+
+// Statik + gramer + yayınlanan içerik sayfalarının sitemap'i.
+function build_pages_sitemap(): string
 {
     $base = site_base_url();
     $urls = [];

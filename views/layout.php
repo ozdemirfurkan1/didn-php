@@ -18,7 +18,7 @@ declare(strict_types=1);
     if (mb_strlen($metaDesc, 'UTF-8') > 160) {
         $metaDesc = mb_substr($metaDesc, 0, 157, 'UTF-8') . '…';
     }
-    $canonical = site_base_url() . strtok($_SERVER['REQUEST_URI'] ?? '/', '?');
+    $canonical = current_canonical();
     $ogType = $ogType ?? 'website';
     ?>
     <meta name="description" content="<?= e($metaDesc) ?>">
@@ -29,6 +29,9 @@ declare(strict_types=1);
     <meta property="og:url" content="<?= e($canonical) ?>">
     <meta property="og:site_name" content="DiDn">
     <meta name="twitter:card" content="summary">
+    <?php if (!empty($jsonLd)): ?>
+        <script type="application/ld+json"><?= json_encode($jsonLd, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) ?></script>
+    <?php endif; ?>
     <title><?= e($title) ?></title>
     <link rel="stylesheet" href="/assets/style.css?v=<?= e((string) @filemtime(__DIR__ . '/../assets/style.css')) ?>">
     <?php $gaId = config()['ga_measurement_id'] ?? ''; ?>
