@@ -109,6 +109,36 @@ if ($uri === '/duzensiz-fiiller') {
     exit;
 }
 
+// Phrasal verbs (öbek fiiller) referans sayfası
+if ($uri === '/phrasal-verbs') {
+    render('ref_cards', [
+        'items'    => load_dataset('phrasal-verbs.json'),
+        'heading'  => 'İngilizce Phrasal Verbs (Öbek Fiiller)',
+        'lead'     => 'En sık kullanılan İngilizce phrasal verb (öbek fiil): anlamları ve örnek cümleleriyle.',
+        'intro'    => 'Phrasal verb, bir fiil ile edat/zarfın birleşerek çoğu zaman yeni bir anlam kazandığı kalıptır (give up = vazgeçmek). Aşağıdan arayarak bulabilirsin.',
+        'ph'       => 'Phrasal verb ara (ör. give up, vazgeçmek)…',
+        'related'  => [['/duzensiz-fiiller', 'Düzensiz Fiiller'], ['/deyimler', 'Deyimler'], ['/gramer', 'Gramer Konuları']],
+        'title'    => 'İngilizce Phrasal Verbs Listesi ve Anlamları — DiDn',
+        'description' => 'En sık kullanılan İngilizce phrasal verbs (öbek fiiller) listesi: Türkçe anlamları ve örnek cümleleriyle. Arayarak hızlıca bul.',
+    ]);
+    exit;
+}
+
+// Deyimler (idioms) referans sayfası
+if ($uri === '/deyimler') {
+    render('ref_cards', [
+        'items'    => load_dataset('idioms.json'),
+        'heading'  => 'İngilizce Deyimler (Idioms)',
+        'lead'     => 'Sık kullanılan İngilizce deyimler: Türkçe karşılıkları ve örnek cümleleriyle.',
+        'intro'    => 'Deyim (idiom), kelimelerin tek tek anlamından farklı, kalıplaşmış bir anlam taşıyan ifadedir (a piece of cake = çok kolay). Aşağıdan arayarak bulabilirsin.',
+        'ph'       => 'Deyim ara (ör. break the ice, kolay)…',
+        'related'  => [['/phrasal-verbs', 'Phrasal Verbs'], ['/duzensiz-fiiller', 'Düzensiz Fiiller'], ['/gramer', 'Gramer Konuları']],
+        'title'    => 'İngilizce Deyimler ve Anlamları (Idioms) — DiDn',
+        'description' => 'Sık kullanılan İngilizce deyimler (idioms) listesi: Türkçe karşılıkları ve örnek cümleleriyle. Arayarak hızlıca bul.',
+    ]);
+    exit;
+}
+
 // Arama formu: /ara?q=...&dir=en-tr  ->  /en/{kelime} ya da /tr/{kelime}
 if ($uri === '/ara') {
     $q   = trim($_GET['q'] ?? '');

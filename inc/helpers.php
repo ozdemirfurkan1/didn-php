@@ -60,12 +60,18 @@ const SITEMAP_CHUNK = 40000;
 
 function irregular_verbs(): array
 {
-    static $cache = null;
-    if ($cache === null) {
-        $json  = @file_get_contents(__DIR__ . '/../data/irregular-verbs.json');
-        $cache = $json ? (json_decode($json, true) ?: []) : [];
+    return load_dataset('irregular-verbs.json');
+}
+
+// data/<file> içindeki JSON dizisini yükler (statik önbellekli).
+function load_dataset(string $file): array
+{
+    static $cache = [];
+    if (!array_key_exists($file, $cache)) {
+        $json = @file_get_contents(__DIR__ . '/../data/' . $file);
+        $cache[$file] = $json ? (json_decode($json, true) ?: []) : [];
     }
-    return $cache;
+    return $cache[$file];
 }
 
 // Yalın hâle göre düzensiz fiil kaydını döndürür (yoksa null).
@@ -228,6 +234,8 @@ function build_pages_sitemap(): string
     $add('/', null, '1.0');
     $add('/gramer', null, '0.8');
     $add('/duzensiz-fiiller', null, '0.7');
+    $add('/phrasal-verbs', null, '0.7');
+    $add('/deyimler', null, '0.7');
     $add('/es/grammar', null, '0.6');
     $add('/blog', null, '0.6');
     $add('/rehber', null, '0.6');

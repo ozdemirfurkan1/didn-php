@@ -12,13 +12,20 @@ $base = $t['base'];
 </header>
 
 <?php if (($t['key'] ?? '') === 'en'): ?>
-    <a class="ref-banner card" href="/duzensiz-fiiller">
-        <span class="ref-banner-icon">📋</span>
-        <span>
-            <strong>İngilizce Düzensiz Fiiller Listesi</strong>
-            <span class="ref-banner-sub">go-went-gone gibi tüm düzensiz fiiller, V2/V3 ve Türkçe anlamlarıyla — arayarak bul.</span>
-        </span>
-    </a>
+    <div class="ref-banner-grid">
+        <a class="ref-banner card" href="/duzensiz-fiiller">
+            <span class="ref-banner-icon">📋</span>
+            <span><strong>Düzensiz Fiiller</strong><span class="ref-banner-sub">go-went-gone, V2/V3 ve Türkçe anlamları.</span></span>
+        </a>
+        <a class="ref-banner card" href="/phrasal-verbs">
+            <span class="ref-banner-icon">🔗</span>
+            <span><strong>Phrasal Verbs</strong><span class="ref-banner-sub">Öbek fiiller, anlam ve örnek cümleler.</span></span>
+        </a>
+        <a class="ref-banner card" href="/deyimler">
+            <span class="ref-banner-icon">💬</span>
+            <span><strong>Deyimler (Idioms)</strong><span class="ref-banner-sub">İngilizce deyimler ve Türkçe karşılıkları.</span></span>
+        </a>
+    </div>
 <?php endif; ?>
 
 <?php foreach ($groups as $category => $lessons): ?>

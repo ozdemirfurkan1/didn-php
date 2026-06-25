@@ -240,6 +240,16 @@ audio { height: 32px; }
 .ref-banner-icon { font-size: 28px; line-height: 1; }
 .ref-banner strong { display: block; color: var(--primary); }
 .ref-banner-sub { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
+.ref-banner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.ref-banner-grid .ref-banner { margin-bottom: 0; }
+
+/* Referans kart listesi (phrasal verbs / deyimler) */
+.ref-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+.ref-card { padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); }
+.ref-term { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; }
+.ref-term strong { color: var(--primary); }
+.ref-meaning { color: var(--fg); font-size: 14px; }
+.ref-example { margin: 6px 0 0; font-size: 14px; color: var(--muted); font-style: italic; }
 
 /* Kelime sayfası fiil çekim kutusu */
 .verb-conj .conj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
