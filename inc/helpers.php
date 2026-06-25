@@ -16,6 +16,21 @@ function redirect(string $path): void
     exit;
 }
 
+// İstek bir arama motoru botu/tarayıcısı mı? (Botlara ücretli çeviri üretmeyiz.)
+function is_bot(): bool
+{
+    $ua = strtolower($_SERVER['HTTP_USER_AGENT'] ?? '');
+    if ($ua === '') {
+        return true; // UA yoksa temkinli davran
+    }
+    foreach (['bot', 'crawl', 'spider', 'slurp', 'bingpreview', 'facebookexternalhit', 'yandex', 'baidu', 'duckduck', 'semrush', 'ahrefs', 'mj12', 'petalbot'] as $needle) {
+        if (strpos($ua, $needle) !== false) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // Part-of-speech Türkçe karşılığı (lib/part-of-speech.ts ile aynı tablo).
 function translate_pos(string $pos): string
 {

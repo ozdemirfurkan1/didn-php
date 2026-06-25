@@ -316,6 +316,48 @@ function get_word_of_the_day(): ?array
     }
 }
 
+// --- Örnek cümle çevirileri (önbellekli) -----------------------------------
+
+function _example_cache_key(string $text): string
+{
+    return 'trex:' . md5(mb_strtolower(trim($text), 'UTF-8'));
+}
+
+// Sonuçtaki İngilizce örnek cümlelere Türkçe çeviri (example_tr) ekler.
+// Önbellekteki çeviriler hep gösterilir; yeni çeviri yalnızca gerçek
+// kullanıcıya ve istek başına sınırlı sayıda üretilir (maliyet kontrolü).
+function with_example_translations(array $result): array
+{
+    if (empty($result['meanings']) || !is_array($result['meanings'])) {
+        return $result;
+    }
+    $budget   = 3;                                   // bu istekte en fazla yeni çeviri
+    $canMake  = !is_bot() && is_openai_configured(); // bot değilse ve anahtar varsa
+    foreach ($result['meanings'] as &$m) {
+        $ex = trim((string) ($m['example'] ?? ''));
+        if ($ex === '') {
+            continue;
+        }
+        $key    = _example_cache_key($ex);
+        $cached = get_setting($key);
+        if ($cached !== null) {
+            $m['example_tr'] = $cached;
+            continue;
+        }
+        if ($budget <= 0 || !$canMake) {
+            continue;
+        }
+        $tr = openai_translate_tr($ex);
+        if ($tr !== null && $tr !== '') {
+            set_setting($key, $tr);
+            $m['example_tr'] = $tr;
+            $budget--;
+        }
+    }
+    unset($m);
+    return $result;
+}
+
 // Çevirileri part-of-speech'e göre gruplar (Tureng tarzı görünüm için).
 function group_translations_by_type(array $entries): array
 {

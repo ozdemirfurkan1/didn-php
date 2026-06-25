@@ -114,6 +114,9 @@ declare(strict_types=1);
                                         <span class="definition"><?= e($m['definition']) ?></span>
                                         <?php if (!empty($m['example'])): ?>
                                             <p class="example">“<?= e($m['example']) ?>”</p>
+                                            <?php if (!empty($m['example_tr'])): ?>
+                                                <p class="example-tr">— <?= e($m['example_tr']) ?></p>
+                                            <?php endif; ?>
                                         <?php endif; ?>
                                     </li>
                                 <?php endforeach; ?>

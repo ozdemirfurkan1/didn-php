@@ -586,6 +586,7 @@ if (count($segments) === 2 && ($segments[0] === 'en' || $segments[0] === 'tr')) 
     $dir    = $segments[0] === 'en' ? 'en-tr' : 'tr-en';
     $word   = $segments[1];
     $result = lookup_word($word, $dir);
+    $result = with_example_translations($result);
     $wordDesc  = '“' . $word . '” kelimesinin ' . ($dir === 'en-tr' ? 'Türkçe' : 'İngilizce') . ' karşılığı, anlamı ve çevirisi — DiDn İngilizce ↔ Türkçe Sözlük.';
     $wordJsonLd = empty($result['error']) ? [
         '@context' => 'https://schema.org',

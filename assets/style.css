@@ -143,6 +143,7 @@ audio { height: 32px; }
 .meaning-list li { margin-bottom: 12px; }
 .definition { }
 .example { color: var(--muted); font-style: italic; margin: 4px 0 0; }
+.example-tr { color: var(--fg); margin: 2px 0 0; font-size: 14px; }
 
 .rel-block { margin-bottom: 16px; }
 .rel-block:last-child { margin-bottom: 0; }
