@@ -55,7 +55,7 @@ $curDir = $curDir ?? 'auto';
         items = data || [];
         if (!items.length) { close(); return; }
         list.innerHTML = items.map(function (it, i) {
-            var tag = it.lang === 'tr' ? 'TR' : 'EN';
+            var tag = it.lang === 'tr' ? 'TR' : 'İNG';
             return '<li role="option" data-i="' + i + '">' +
                    '<span class="sg-word"></span>' +
                    '<span class="sg-tag">' + tag + '</span></li>';

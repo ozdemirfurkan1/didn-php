@@ -410,34 +410,21 @@ function _example_cache_key(string $text): string
 }
 
 // Sonuçtaki İngilizce örnek cümlelere Türkçe çeviri (example_tr) ekler.
-// Önbellekteki çeviriler hep gösterilir; yeni çeviri yalnızca gerçek
-// kullanıcıya ve istek başına sınırlı sayıda üretilir (maliyet kontrolü).
+// NOT: Canlı OpenAI çeviri üretimi KAPALI (maliyet + sayfa gecikmesi yüzünden).
+// Sadece daha önce önbelleğe alınmış çeviriler gösterilir; yeni çeviri üretilmez.
 function with_example_translations(array $result): array
 {
     if (empty($result['meanings']) || !is_array($result['meanings'])) {
         return $result;
     }
-    $budget   = 3;                                   // bu istekte en fazla yeni çeviri
-    $canMake  = !is_bot() && is_openai_configured(); // bot değilse ve anahtar varsa
     foreach ($result['meanings'] as &$m) {
         $ex = trim((string) ($m['example'] ?? ''));
         if ($ex === '') {
             continue;
         }
-        $key    = _example_cache_key($ex);
-        $cached = get_setting($key);
+        $cached = get_setting(_example_cache_key($ex));
         if ($cached !== null) {
             $m['example_tr'] = $cached;
-            continue;
-        }
-        if ($budget <= 0 || !$canMake) {
-            continue;
-        }
-        $tr = openai_translate_tr($ex);
-        if ($tr !== null && $tr !== '') {
-            set_setting($key, $tr);
-            $m['example_tr'] = $tr;
-            $budget--;
         }
     }
     unset($m);
