@@ -80,6 +80,84 @@ function irregular_verb(string $base): ?array
     return null;
 }
 
+// --- Fiil çekimi (kelime sayfasındaki çekim kutusu için) -------------------
+
+function _en_is_vowel(string $c): bool
+{
+    return $c !== '' && strpos('aeiou', $c) !== false;
+}
+
+// Tek heceli kısa fiillerde son ünsüzü ikileme durumu (stop→stopping).
+function _en_doubles(string $b): bool
+{
+    $len = strlen($b);
+    if ($len < 3 || $len > 4) {
+        return false;
+    }
+    $c1 = $b[$len - 1];
+    $v  = $b[$len - 2];
+    $c0 = $b[$len - 3];
+    return !_en_is_vowel($c1) && _en_is_vowel($v) && !_en_is_vowel($c0) && strpos('wxy', $c1) === false;
+}
+
+function verb_ing(string $b): string
+{
+    $len = strlen($b);
+    if ($len >= 2 && substr($b, -2) === 'ie') {
+        return substr($b, 0, -2) . 'ying';            // lie → lying
+    }
+    if (substr($b, -1) === 'e' && !in_array(substr($b, -2), ['ee', 'ye', 'oe'], true) && $len > 2) {
+        return substr($b, 0, -1) . 'ing';             // make → making
+    }
+    if (_en_doubles($b)) {
+        return $b . substr($b, -1) . 'ing';           // stop → stopping
+    }
+    return $b . 'ing';
+}
+
+function verb_ed(string $b): string
+{
+    $len = strlen($b);
+    if (substr($b, -1) === 'e') {
+        return $b . 'd';                              // like → liked
+    }
+    if ($len >= 2 && substr($b, -1) === 'y' && !_en_is_vowel($b[$len - 2])) {
+        return substr($b, 0, -1) . 'ied';            // study → studied
+    }
+    if (_en_doubles($b)) {
+        return $b . substr($b, -1) . 'ed';           // stop → stopped
+    }
+    return $b . 'ed';
+}
+
+function verb_third_person(string $b): string
+{
+    $len = strlen($b);
+    if (in_array(substr($b, -1), ['s', 'x', 'z', 'o'], true) || in_array(substr($b, -2), ['ss', 'sh', 'ch'], true)) {
+        return $b . 'es';                             // watch → watches
+    }
+    if ($len >= 2 && substr($b, -1) === 'y' && !_en_is_vowel($b[$len - 2])) {
+        return substr($b, 0, -1) . 'ies';            // study → studies
+    }
+    return $b . 's';
+}
+
+// Bir fiilin tüm temel biçimlerini döndürür. Düzensizse V2/V3 tablodan,
+// değilse kurala göre üretilir.
+function verb_conjugation(string $base): array
+{
+    $b   = mb_strtolower(trim($base), 'UTF-8');
+    $irr = irregular_verb($b);
+    return [
+        'base'        => $b,
+        'thirdPerson' => verb_third_person($b),
+        'ing'         => verb_ing($b),
+        'past'        => $irr ? $irr['past'] : verb_ed($b),
+        'pp'          => $irr ? $irr['pp'] : verb_ed($b),
+        'irregular'   => (bool) $irr,
+    ];
+}
+
 // İsteğe göre mutlak kök URL (örn. https://didn.net). Sitemap/canonical için.
 function site_base_url(): string
 {

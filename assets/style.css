@@ -241,6 +241,15 @@ audio { height: 32px; }
 .ref-banner strong { display: block; color: var(--primary); }
 .ref-banner-sub { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
 
+/* Kelime sayfası fiil çekim kutusu */
+.verb-conj .conj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.conj-cell { padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); }
+.conj-label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+.conj-val { font-weight: 600; }
+.conj-tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; vertical-align: middle; margin-left: 6px; }
+.conj-irr { background: var(--primary-soft); color: var(--primary); }
+.conj-reg { background: var(--surface-2); color: var(--muted); }
+
 /* Sonuç ızgarası — çeviriler solda, tanım/eş-zıt sağda */
 .result-grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; align-items: start; }
 .result-grid.single { grid-template-columns: 1fr; }

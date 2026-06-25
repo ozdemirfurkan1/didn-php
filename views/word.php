@@ -49,7 +49,34 @@ declare(strict_types=1);
                 }
             }
         }
+
+        // Kelime fiilse çekim kutusu (yalnız tek kelimelik İngilizce başlıkta).
+        $verbConj = null;
+        if ($dir === 'en-tr') {
+            $isVerb = in_array('verb', array_map('strtolower', $posSet ?? []), true)
+                || in_array('v', array_map('strtolower', $posSet ?? []), true);
+            $hw = (string) ($result['headword'] ?? '');
+            if ($isVerb && $hw !== '' && preg_match('/^[a-zA-Z]+$/', $hw)) {
+                $verbConj = verb_conjugation($hw);
+            }
+        }
         ?>
+        <?php if ($verbConj): ?>
+            <section class="card verb-conj">
+                <h2 class="section-title">Fiil çekimi <span class="conj-tag conj-<?= $verbConj['irregular'] ? 'irr' : 'reg' ?>"><?= $verbConj['irregular'] ? 'düzensiz' : 'düzenli' ?></span></h2>
+                <div class="conj-grid">
+                    <div class="conj-cell"><span class="conj-label">Yalın (V1)</span><span class="conj-val"><?= e($verbConj['base']) ?></span></div>
+                    <div class="conj-cell"><span class="conj-label">3. tekil (-s)</span><span class="conj-val"><?= e($verbConj['thirdPerson']) ?></span></div>
+                    <div class="conj-cell"><span class="conj-label">-ing</span><span class="conj-val"><?= e($verbConj['ing']) ?></span></div>
+                    <div class="conj-cell"><span class="conj-label">Past (V2)</span><span class="conj-val"><?= e($verbConj['past']) ?></span></div>
+                    <div class="conj-cell"><span class="conj-label">Participle (V3)</span><span class="conj-val"><?= e($verbConj['pp']) ?></span></div>
+                </div>
+                <?php if (!$verbConj['irregular']): ?>
+                    <p class="table-caption">Düzenli fiil — biçimler kurala göre üretilmiştir.</p>
+                <?php endif; ?>
+            </section>
+        <?php endif; ?>
+
         <div class="result-grid <?= $hasDetails ? '' : 'single' ?>">
             <?php if ($groups): ?>
                 <section class="translations card">
