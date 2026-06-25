@@ -99,6 +99,16 @@ if ($uri === '/') {
     exit;
 }
 
+// Düzensiz fiiller referans sayfası
+if ($uri === '/duzensiz-fiiller') {
+    render('irregular_verbs', [
+        'verbs' => irregular_verbs(),
+        'title' => 'İngilizce Düzensiz Fiiller Listesi (V1 V2 V3) — DiDn',
+        'description' => 'İngilizce düzensiz fiiller (irregular verbs) tablosu: yalın hâl, ikinci hâl (V2) ve üçüncü hâl (V3) ile Türkçe anlamları. Arayarak hızlıca bul.',
+    ]);
+    exit;
+}
+
 // Arama formu: /ara?q=...&dir=en-tr  ->  /en/{kelime} ya da /tr/{kelime}
 if ($uri === '/ara') {
     $q   = trim($_GET['q'] ?? '');

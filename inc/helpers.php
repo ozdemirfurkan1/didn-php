@@ -56,6 +56,30 @@ function slugify(string $input): string
 // Tek sitemap dosyasına sığacak azami URL sayısı (Google sınırı 50.000).
 const SITEMAP_CHUNK = 40000;
 
+// --- Düzensiz fiiller (data/irregular-verbs.json) --------------------------
+
+function irregular_verbs(): array
+{
+    static $cache = null;
+    if ($cache === null) {
+        $json  = @file_get_contents(__DIR__ . '/../data/irregular-verbs.json');
+        $cache = $json ? (json_decode($json, true) ?: []) : [];
+    }
+    return $cache;
+}
+
+// Yalın hâle göre düzensiz fiil kaydını döndürür (yoksa null).
+function irregular_verb(string $base): ?array
+{
+    $b = mb_strtolower(trim($base), 'UTF-8');
+    foreach (irregular_verbs() as $v) {
+        if (mb_strtolower($v['base'] ?? '', 'UTF-8') === $b) {
+            return $v;
+        }
+    }
+    return null;
+}
+
 // İsteğe göre mutlak kök URL (örn. https://didn.net). Sitemap/canonical için.
 function site_base_url(): string
 {
@@ -125,6 +149,7 @@ function build_pages_sitemap(): string
     // Statik / liste sayfaları
     $add('/', null, '1.0');
     $add('/gramer', null, '0.8');
+    $add('/duzensiz-fiiller', null, '0.7');
     $add('/es/grammar', null, '0.6');
     $add('/blog', null, '0.6');
     $add('/rehber', null, '0.6');

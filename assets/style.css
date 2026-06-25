@@ -230,6 +230,17 @@ audio { height: 32px; }
 /* Kelime → gramer iç linkleme kutusu */
 .grammar-hint-desc { margin: 0 0 12px; font-size: 14px; color: var(--muted); }
 
+/* Düzensiz fiiller: arama filtresi ve referans banner */
+.verb-filter { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--fg); font: inherit; margin-bottom: 14px; }
+.verb-filter:focus { outline: none; border-color: var(--primary); }
+.verb-table td { vertical-align: top; }
+.verb-table .verb-tr { color: var(--muted); }
+.ref-banner { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--fg); margin-bottom: 20px; }
+.ref-banner:hover { border-color: var(--primary); }
+.ref-banner-icon { font-size: 28px; line-height: 1; }
+.ref-banner strong { display: block; color: var(--primary); }
+.ref-banner-sub { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
+
 /* Sonuç ızgarası — çeviriler solda, tanım/eş-zıt sağda */
 .result-grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; align-items: start; }
 .result-grid.single { grid-template-columns: 1fr; }
