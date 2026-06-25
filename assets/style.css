@@ -194,6 +194,27 @@ audio { height: 32px; }
 .wrong { display: block; color: var(--danger); }
 .right { display: block; color: var(--success); }
 
+/* Mini test (quiz) */
+.quiz-q { padding: 14px 0; border-bottom: 1px solid var(--border); }
+.quiz-q:first-of-type { padding-top: 0; }
+.quiz-q:last-of-type { border-bottom: none; padding-bottom: 0; }
+.quiz-prompt { font-weight: 600; margin: 0 0 10px; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt { text-align: left; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--fg); font: inherit; cursor: pointer; transition: border-color .15s, background .15s, color .15s; }
+.quiz-q:not(.answered) .quiz-opt:hover { border-color: var(--primary); }
+.quiz-q.answered .quiz-opt { cursor: default; }
+.quiz-opt.correct { border-color: var(--success); background: var(--primary-soft); color: var(--success); font-weight: 600; }
+.quiz-opt.wrong { border-color: var(--danger); color: var(--danger); }
+.quiz-explain { margin: 10px 0 0; font-size: 14px; color: var(--primary); }
+
+/* Form / çekim tabloları */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.form-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.form-table th, .form-table td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.form-table thead th { background: var(--surface-2); font-weight: 700; white-space: nowrap; }
+.form-table tbody th { background: var(--primary-soft); color: var(--primary); font-weight: 600; white-space: nowrap; }
+.table-caption { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+
 /* Sonuç ızgarası — çeviriler solda, tanım/eş-zıt sağda */
 .result-grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; align-items: start; }
 .result-grid.single { grid-template-columns: 1fr; }

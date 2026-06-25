@@ -25,6 +25,37 @@ $native = $t['native']; // örnek cümlede çeviri dili alanı
         <?php endif; ?>
     </header>
 
+    <?php if (!empty($lesson['formTable'])): $ft = $lesson['formTable']; ?>
+        <section class="lesson-section card">
+            <h2><?= e($lbl['formTable']) ?></h2>
+            <div class="table-wrap">
+                <table class="form-table">
+                    <?php if (!empty($ft['headers'])): ?>
+                        <thead>
+                            <tr><?php foreach ($ft['headers'] as $h): ?><th><?= e($h) ?></th><?php endforeach; ?></tr>
+                        </thead>
+                    <?php endif; ?>
+                    <tbody>
+                        <?php foreach (($ft['rows'] ?? []) as $row): ?>
+                            <tr>
+                                <?php foreach ($row as $ci => $cell): ?>
+                                    <?php if ($ci === 0): ?>
+                                        <th scope="row"><?= e($cell) ?></th>
+                                    <?php else: ?>
+                                        <td><?= e($cell) ?></td>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php if (!empty($ft['caption'])): ?>
+                <p class="table-caption"><?= e($ft['caption']) ?></p>
+            <?php endif; ?>
+        </section>
+    <?php endif; ?>
+
     <?php foreach (($lesson['sections'] ?? []) as $section): ?>
         <section class="lesson-section card">
             <h2><?= e($section['heading']) ?></h2>
@@ -69,6 +100,41 @@ $native = $t['native']; // örnek cümlede çeviri dili alanı
                 <?php endforeach; ?>
             </ul>
         </section>
+    <?php endif; ?>
+
+    <?php if (!empty($lesson['quiz'])): ?>
+        <section class="lesson-section card quiz">
+            <h2><?= e($lbl['quiz']) ?></h2>
+            <?php foreach ($lesson['quiz'] as $q): ?>
+                <div class="quiz-q" data-answer="<?= (int) ($q['answer'] ?? 0) ?>">
+                    <p class="quiz-prompt"><?= e($q['q'] ?? '') ?></p>
+                    <div class="quiz-options">
+                        <?php foreach (($q['options'] ?? []) as $oi => $opt): ?>
+                            <button type="button" class="quiz-opt" data-index="<?= (int) $oi ?>"><?= e($opt) ?></button>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php if (!empty($q['explanation'])): ?>
+                        <p class="quiz-explain" hidden><?= e($q['explanation']) ?></p>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </section>
+        <script>
+        document.querySelectorAll('.quiz-q').forEach(function (q) {
+            var answer  = parseInt(q.dataset.answer, 10);
+            var opts    = q.querySelectorAll('.quiz-opt');
+            var explain = q.querySelector('.quiz-explain');
+            opts.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    if (q.classList.contains('answered')) return;
+                    q.classList.add('answered');
+                    if (opts[answer]) opts[answer].classList.add('correct');
+                    if (parseInt(btn.dataset.index, 10) !== answer) btn.classList.add('wrong');
+                    if (explain) explain.hidden = false;
+                });
+            });
+        });
+        </script>
     <?php endif; ?>
 
     <?php
