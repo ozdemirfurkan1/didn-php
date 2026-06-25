@@ -283,6 +283,15 @@ audio { height: 32px; }
 .st-learned { color: var(--success); border-color: var(--success); background: var(--primary-soft); font-weight: 600; }
 .status-toggle:hover { border-color: var(--primary); }
 
+/* Klasör sekmeleri ve atama */
+.folder-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.chip-active { background: var(--primary); color: var(--primary-fg); border-color: var(--primary); }
+.folder-form { display: flex; gap: 6px; margin-top: 10px; }
+.folder-input { flex: 1; min-width: 0; font: inherit; font-size: 13px; padding: 5px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--fg); }
+.folder-input:focus { outline: none; border-color: var(--primary); }
+.folder-save { font: inherit; font-size: 13px; cursor: pointer; padding: 5px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); color: var(--fg); }
+.folder-save:hover { border-color: var(--primary); color: var(--primary); }
+
 /* İlerleme çubuğu */
 .progress-card { margin-bottom: 16px; }
 .progress-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }

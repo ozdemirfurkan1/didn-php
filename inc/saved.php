@@ -19,15 +19,19 @@ function ensure_saved_word_table(): void
             headword VARCHAR(190) NOT NULL,
             summary VARCHAR(500) NULL,
             status VARCHAR(12) NOT NULL DEFAULT 'learning',
+            folder VARCHAR(60) NOT NULL DEFAULT '',
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             UNIQUE KEY uniq_user_word (user_id, dir, word),
             INDEX idx_user_created (user_id, created_at)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
     );
-    // Eski tabloda status kolonu yoksa ekle (migration).
+    // Eski tabloda eksik kolonları ekle (migration).
     try {
         if (!db()->query("SHOW COLUMNS FROM saved_word LIKE 'status'")->fetch()) {
             db()->exec("ALTER TABLE saved_word ADD COLUMN status VARCHAR(12) NOT NULL DEFAULT 'learning'");
+        }
+        if (!db()->query("SHOW COLUMNS FROM saved_word LIKE 'folder'")->fetch()) {
+            db()->exec("ALTER TABLE saved_word ADD COLUMN folder VARCHAR(60) NOT NULL DEFAULT ''");
         }
     } catch (Throwable $e) {
         // yoksay
@@ -72,12 +76,41 @@ function is_word_saved(int $userId, string $dir, string $word): bool
     return (bool) $stmt->fetchColumn();
 }
 
-function list_saved_words(int $userId): array
+function list_saved_words(int $userId, ?string $folder = null): array
 {
     ensure_saved_word_table();
-    $stmt = db()->prepare("SELECT dir, word, headword, summary, status, created_at FROM saved_word WHERE user_id = :u ORDER BY created_at DESC");
-    $stmt->execute([':u' => $userId]);
+    $sql    = "SELECT dir, word, headword, summary, status, folder, created_at FROM saved_word WHERE user_id = :u";
+    $params = [':u' => $userId];
+    if ($folder !== null && $folder !== '') {
+        $sql .= " AND folder = :f";
+        $params[':f'] = mb_substr($folder, 0, 60, 'UTF-8');
+    }
+    $sql .= " ORDER BY created_at DESC";
+    $stmt = db()->prepare($sql);
+    $stmt->execute($params);
     return $stmt->fetchAll();
+}
+
+// Kullanıcının kullandığı klasör adları (boş olmayan).
+function list_folders(int $userId): array
+{
+    ensure_saved_word_table();
+    $stmt = db()->prepare("SELECT DISTINCT folder FROM saved_word WHERE user_id = :u AND folder <> '' ORDER BY folder");
+    $stmt->execute([':u' => $userId]);
+    return array_map(fn($r) => (string) $r['folder'], $stmt->fetchAll());
+}
+
+// Bir kelimeyi bir klasöre atar (boş = klasörsüz).
+function set_word_folder(int $userId, string $dir, string $word, string $folder): void
+{
+    ensure_saved_word_table();
+    $stmt = db()->prepare("UPDATE saved_word SET folder = :fo WHERE user_id = :u AND dir = :d AND word = :w");
+    $stmt->execute([
+        ':fo' => mb_substr(trim($folder), 0, 60, 'UTF-8'),
+        ':u'  => $userId,
+        ':d'  => $dir,
+        ':w'  => mb_substr($word, 0, 190, 'UTF-8'),
+    ]);
 }
 
 function count_saved_words(int $userId): int

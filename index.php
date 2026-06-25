@@ -218,10 +218,13 @@ if ($uri === '/cikis') {
 // --- Kelimelerim (kayıtlı kelimeler) --------------------------------------
 
 if ($uri === '/kelimelerim') {
-    $u = require_login();
+    $u      = require_login();
+    $folder = trim($_GET['klasor'] ?? '');
     render('saved_words', [
-        'words' => list_saved_words((int) $u['id']),
-        'title' => 'Kelimelerim — DiDn',
+        'words'        => list_saved_words((int) $u['id'], $folder !== '' ? $folder : null),
+        'folders'      => list_folders((int) $u['id']),
+        'activeFolder' => $folder,
+        'title'        => 'Kelimelerim — DiDn',
     ]);
     exit;
 }
@@ -249,8 +252,9 @@ if ($uri === '/kelime-sil' && $method === 'POST') {
 
 // Flashcard çalışma modu
 if ($uri === '/kelimelerim/calis') {
-    $u     = require_login();
-    $words = list_saved_words((int) $u['id']);
+    $u      = require_login();
+    $folder = trim($_GET['klasor'] ?? '');
+    $words  = list_saved_words((int) $u['id'], $folder !== '' ? $folder : null);
     $cards = [];
     foreach ($words as $w) {
         $cards[] = [
@@ -272,6 +276,17 @@ if ($uri === '/kelime-durum' && $method === 'POST') {
     $word = trim($_POST['word'] ?? '');
     if (csrf_check() && $word !== '') {
         set_word_status((int) $u['id'], $dir, $word, (string) ($_POST['status'] ?? 'learning'));
+    }
+    redirect('/kelimelerim');
+}
+
+// Bir kelimeyi klasöre ata
+if ($uri === '/kelime-klasor' && $method === 'POST') {
+    $u    = require_login();
+    $dir  = ($_POST['dir'] ?? 'en-tr') === 'tr-en' ? 'tr-en' : 'en-tr';
+    $word = trim($_POST['word'] ?? '');
+    if (csrf_check() && $word !== '') {
+        set_word_folder((int) $u['id'], $dir, $word, (string) ($_POST['folder'] ?? ''));
     }
     redirect('/kelimelerim');
 }
