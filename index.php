@@ -12,6 +12,7 @@ require __DIR__ . '/inc/settings.php';
 require __DIR__ . '/inc/content.php';
 require __DIR__ . '/inc/openai.php';
 require __DIR__ . '/inc/blog-generator.php';
+require __DIR__ . '/inc/saved.php';
 
 // Oturumu en başta başlat (çerez henüz çıktı olmadan gönderilsin).
 start_session();
@@ -212,6 +213,38 @@ if ($uri === '/kayit') {
 if ($uri === '/cikis') {
     logout_user();
     redirect('/');
+}
+
+// --- Kelimelerim (kayıtlı kelimeler) --------------------------------------
+
+if ($uri === '/kelimelerim') {
+    $u = require_login();
+    render('saved_words', [
+        'words' => list_saved_words((int) $u['id']),
+        'title' => 'Kelimelerim — DiDn',
+    ]);
+    exit;
+}
+
+if ($uri === '/kelime-kaydet' && $method === 'POST') {
+    $u    = require_login();
+    $dir  = ($_POST['dir'] ?? 'en-tr') === 'tr-en' ? 'tr-en' : 'en-tr';
+    $word = trim($_POST['word'] ?? '');
+    if (csrf_check() && $word !== '') {
+        save_word((int) $u['id'], $dir, $word, trim($_POST['headword'] ?? ''), trim($_POST['summary'] ?? ''));
+    }
+    redirect(($dir === 'en-tr' ? '/en/' : '/tr/') . rawurlencode($word));
+}
+
+if ($uri === '/kelime-sil' && $method === 'POST') {
+    $u    = require_login();
+    $dir  = ($_POST['dir'] ?? 'en-tr') === 'tr-en' ? 'tr-en' : 'en-tr';
+    $word = trim($_POST['word'] ?? '');
+    if (csrf_check() && $word !== '') {
+        unsave_word((int) $u['id'], $dir, $word);
+    }
+    $back = (string) ($_POST['back'] ?? '/kelimelerim');
+    redirect($back !== '' && $back[0] === '/' ? $back : '/kelimelerim');
 }
 
 // --- Admin paneli ---------------------------------------------------------

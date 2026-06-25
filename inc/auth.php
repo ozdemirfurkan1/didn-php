@@ -97,6 +97,16 @@ function logout_user(): void
     session_destroy();
 }
 
+// Giriş yapılmamışsa /giris'e yönlendir (route koruması).
+function require_login(): array
+{
+    $u = current_user();
+    if (!$u) {
+        redirect('/giris');
+    }
+    return $u;
+}
+
 // Admin değilse yönlendir (route koruması).
 function require_admin(): array
 {

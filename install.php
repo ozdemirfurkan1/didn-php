@@ -46,6 +46,19 @@ try {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
     echo "✓ user tablosu hazır\n";
 
+    db()->exec("CREATE TABLE IF NOT EXISTS saved_word (
+        id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        user_id BIGINT NOT NULL,
+        dir VARCHAR(8) NOT NULL,
+        word VARCHAR(190) NOT NULL,
+        headword VARCHAR(190) NOT NULL,
+        summary VARCHAR(500) NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE KEY uniq_user_word (user_id, dir, word),
+        INDEX idx_user_created (user_id, created_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    echo "✓ saved_word tablosu hazır\n";
+
     $c     = config();
     $email = mb_strtolower(trim((string) ($c['admin_email'] ?? '')), 'UTF-8');
     $pass  = (string) ($c['admin_password'] ?? '');

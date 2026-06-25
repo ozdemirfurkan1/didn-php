@@ -27,6 +27,34 @@ declare(strict_types=1);
                     <audio controls preload="none" src="<?= e($result['audioUrl']) ?>"></audio>
                 <?php endif; ?>
             </div>
+            <?php
+            $cu = current_user();
+            if ($cu && empty($result['error'])):
+                $saved   = is_word_saved((int) $cu['id'], $dir, $word);
+                $summary = implode(', ', array_map(fn($tr) => $tr['word'], array_slice($result['translations'] ?? [], 0, 5)));
+                $backUrl = ($dir === 'en-tr' ? '/en/' : '/tr/') . rawurlencode($word);
+            ?>
+                <?php if ($saved): ?>
+                    <form method="post" action="/kelime-sil" class="save-form">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="word" value="<?= e($word) ?>">
+                        <input type="hidden" name="dir" value="<?= e($dir) ?>">
+                        <input type="hidden" name="back" value="<?= e($backUrl) ?>">
+                        <button type="submit" class="btn-saved">✓ Kelimelerimde — kaldır</button>
+                    </form>
+                <?php else: ?>
+                    <form method="post" action="/kelime-kaydet" class="save-form">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="word" value="<?= e($word) ?>">
+                        <input type="hidden" name="dir" value="<?= e($dir) ?>">
+                        <input type="hidden" name="headword" value="<?= e($result['headword'] ?? $word) ?>">
+                        <input type="hidden" name="summary" value="<?= e($summary) ?>">
+                        <button type="submit" class="btn-save">+ Kelimelerime ekle</button>
+                    </form>
+                <?php endif; ?>
+            <?php elseif (!$cu && empty($result['error'])): ?>
+                <p class="save-hint"><a href="/giris">Giriş yap</a>, bu kelimeyi “Kelimelerim”e ekle.</p>
+            <?php endif; ?>
         </header>
 
         <?php

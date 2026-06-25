@@ -62,6 +62,7 @@ declare(strict_types=1);
                 <a href="/rehber">Rehberler</a>
                 <a href="/haber">Haberler</a>
                 <?php if ($cu): ?>
+                    <a href="/kelimelerim">Kelimelerim</a>
                     <?php if ($cu['role'] === 'admin'): ?>
                         <a href="/admin" class="nav-admin">Admin</a>
                     <?php endif; ?>

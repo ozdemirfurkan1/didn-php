@@ -260,6 +260,23 @@ audio { height: 32px; }
 .home-refs { margin-top: 8px; }
 .home-refs-title { font-size: 18px; margin: 0 0 12px; }
 
+/* Kelime kaydet / Kelimelerim */
+.save-form { margin-top: 12px; }
+.btn-save, .btn-saved { font: inherit; cursor: pointer; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border); }
+.btn-save { background: var(--primary); color: var(--primary-fg); border-color: var(--primary); }
+.btn-save:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+.btn-saved { background: var(--surface-2); color: var(--success); }
+.btn-saved:hover { border-color: var(--danger); color: var(--danger); }
+.save-hint { margin-top: 12px; font-size: 14px; color: var(--muted); }
+.saved-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.saved-card { position: relative; margin-bottom: 0; }
+.saved-word { font-size: 18px; font-weight: 700; color: var(--primary); text-decoration: none; }
+.saved-word:hover { text-decoration: underline; }
+.saved-sum { margin: 6px 0 0; font-size: 14px; color: var(--muted); }
+.saved-remove { position: absolute; top: 10px; right: 10px; margin: 0; }
+.btn-remove { border: none; background: transparent; color: var(--subtle); cursor: pointer; font-size: 14px; line-height: 1; padding: 4px; border-radius: 6px; }
+.btn-remove:hover { color: var(--danger); background: var(--surface-2); }
+
 /* Tema (açık/koyu) düğmesi */
 .theme-toggle { border: 1px solid var(--border); background: var(--surface); color: var(--fg); border-radius: 999px; width: 34px; height: 34px; line-height: 1; font-size: 16px; cursor: pointer; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
 .theme-toggle:hover { border-color: var(--primary); }
