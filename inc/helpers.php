@@ -51,6 +51,71 @@ function slugify(string $input): string
     return mb_substr($s, 0, 200, 'UTF-8');
 }
 
+// --- SEO: site kök URL'si ve sitemap üretimi -------------------------------
+
+// İsteğe göre mutlak kök URL (örn. https://didn.net). Sitemap/canonical için.
+function site_base_url(): string
+{
+    $https  = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (($_SERVER['SERVER_PORT'] ?? '') == 443)
+        || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
+    $scheme = $https ? 'https' : 'http';
+    $host   = $_SERVER['HTTP_HOST'] ?? 'didn.net';
+    return $scheme . '://' . $host;
+}
+
+// Tüm önemli sayfaları içeren sitemap XML'i üretir (statik + gramer + içerik).
+function build_sitemap(): string
+{
+    $base = site_base_url();
+    $urls = [];
+    $add  = function (string $path, ?string $lastmod = null, ?string $priority = null) use (&$urls, $base) {
+        $urls[] = ['loc' => $base . $path, 'lastmod' => $lastmod, 'priority' => $priority];
+    };
+
+    // Statik / liste sayfaları
+    $add('/', null, '1.0');
+    $add('/gramer', null, '0.8');
+    $add('/es/grammar', null, '0.6');
+    $add('/blog', null, '0.6');
+    $add('/rehber', null, '0.6');
+    $add('/haber', null, '0.6');
+
+    // Gramer dersleri (en + es track)
+    $gDate  = ($m = @filemtime(__DIR__ . '/../data/grammar.json')) ? date('Y-m-d', $m) : null;
+    foreach (all_lessons('en') as $l) {
+        $add('/gramer/' . rawurlencode($l['slug']), $gDate, '0.7');
+    }
+    $esDate = ($m = @filemtime(__DIR__ . '/../data/grammar-es.json')) ? date('Y-m-d', $m) : null;
+    foreach (all_lessons('es') as $l) {
+        $add('/es/grammar/' . rawurlencode($l['slug']), $esDate, '0.5');
+    }
+
+    // Yayınlanan içerik (blog/rehber/haber) — DB erişilemezse sessizce atla.
+    try {
+        $routeOf = ['blog' => 'blog', 'guide' => 'rehber', 'news' => 'haber'];
+        foreach ($routeOf as $type => $route) {
+            foreach (list_published($type) as $it) {
+                $when = $it['published_at'] ?? $it['created_at'] ?? null;
+                $add('/' . $route . '/' . rawurlencode($it['slug']), $when ? date('Y-m-d', strtotime($when)) : null, '0.6');
+            }
+        }
+    } catch (Throwable $e) {
+        // Sitemap statik + gramer ile yine de döner.
+    }
+
+    $xml  = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    foreach ($urls as $u) {
+        $xml .= '  <url><loc>' . htmlspecialchars($u['loc'], ENT_XML1, 'UTF-8') . '</loc>';
+        if ($u['lastmod'])  { $xml .= '<lastmod>' . $u['lastmod'] . '</lastmod>'; }
+        if ($u['priority']) { $xml .= '<priority>' . $u['priority'] . '</priority>'; }
+        $xml .= '</url>' . "\n";
+    }
+    $xml .= '</urlset>' . "\n";
+    return $xml;
+}
+
 // Basit Markdown-lite gövde render'ı (## / ### başlık, "- " liste, paragraf).
 function render_markdown(string $body): string
 {

@@ -9,6 +9,26 @@ declare(strict_types=1);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php
+    $metaDesc = trim((string) ($description ?? ''));
+    if ($metaDesc === '') {
+        $metaDesc = 'DiDn — İngilizce ↔ Türkçe sözlük, gramer dersleri ve İngilizce öğrenme rehberleri.';
+    }
+    $metaDesc = trim((string) preg_replace('/\s+/', ' ', $metaDesc));
+    if (mb_strlen($metaDesc, 'UTF-8') > 160) {
+        $metaDesc = mb_substr($metaDesc, 0, 157, 'UTF-8') . '…';
+    }
+    $canonical = site_base_url() . strtok($_SERVER['REQUEST_URI'] ?? '/', '?');
+    $ogType = $ogType ?? 'website';
+    ?>
+    <meta name="description" content="<?= e($metaDesc) ?>">
+    <link rel="canonical" href="<?= e($canonical) ?>">
+    <meta property="og:title" content="<?= e($title) ?>">
+    <meta property="og:description" content="<?= e($metaDesc) ?>">
+    <meta property="og:type" content="<?= e($ogType) ?>">
+    <meta property="og:url" content="<?= e($canonical) ?>">
+    <meta property="og:site_name" content="DiDn">
+    <meta name="twitter:card" content="summary">
     <title><?= e($title) ?></title>
     <link rel="stylesheet" href="/assets/style.css?v=<?= e((string) @filemtime(__DIR__ . '/../assets/style.css')) ?>">
     <?php $gaId = config()['ga_measurement_id'] ?? ''; ?>

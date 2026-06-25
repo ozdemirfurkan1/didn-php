@@ -58,6 +58,18 @@ if ($uri === '/cron/generate-blog') {
     exit;
 }
 
+// SEO: sitemap ve robots (oturum/yetki gerektirmez)
+if ($uri === '/sitemap.xml') {
+    header('Content-Type: application/xml; charset=utf-8');
+    echo build_sitemap();
+    exit;
+}
+if ($uri === '/robots.txt') {
+    header('Content-Type: text/plain; charset=utf-8');
+    echo "User-agent: *\nAllow: /\n\nSitemap: " . site_base_url() . "/sitemap.xml\n";
+    exit;
+}
+
 if ($uri === '/') {
     render('home', ['wotd' => get_word_of_the_day()]);
     exit;
@@ -409,6 +421,7 @@ foreach ($grammarRoutes as $path => $trackKey) {
             'groups' => lessons_by_category($trackKey),
             't'      => $t,
             'title'  => $t['labels']['pageIndex'],
+            'description' => $t['labels']['indexSub'] ?? '',
         ]);
         exit;
     }
@@ -420,6 +433,8 @@ foreach ($grammarRoutes as $path => $trackKey) {
                 'lesson' => $lesson,
                 't'      => $t,
                 'title'  => $lesson['title'] . ' — DiDn',
+                'description' => $lesson['summary'] ?? '',
+                'ogType' => 'article',
             ]);
             exit;
         }
@@ -435,6 +450,7 @@ if (isset($publicRoutes[$segments[0] ?? ''])) {
             'type'  => $ctype,
             'items' => list_published($ctype),
             'title' => CONTENT_TYPES[$ctype]['plural'] . ' — DiDn',
+            'description' => 'DiDn ' . CONTENT_TYPES[$ctype]['plural'] . ' — İngilizce öğrenmeye dair yazılar, rehberler ve haberler.',
         ]);
         exit;
     }
@@ -447,7 +463,7 @@ if (isset($publicRoutes[$segments[0] ?? ''])) {
             $preview = true;
         }
         if ($item) {
-            render('content_article', ['item' => $item, 'preview' => $preview, 'title' => $item['title'] . ' — DiDn']);
+            render('content_article', ['item' => $item, 'preview' => $preview, 'title' => $item['title'] . ' — DiDn', 'description' => $item['summary'] ?? '', 'ogType' => 'article']);
             exit;
         }
         http_response_code(404);
@@ -466,6 +482,7 @@ if (count($segments) === 2 && ($segments[0] === 'en' || $segments[0] === 'tr')) 
         'word'   => $word,
         'dir'    => $dir,
         'title'  => $word . ' — DiDn Sözlük',
+        'description' => '“' . $word . '” kelimesinin ' . ($dir === 'en-tr' ? 'Türkçe' : 'İngilizce') . ' karşılığı, anlamı ve çevirisi — DiDn İngilizce ↔ Türkçe Sözlük.',
     ]);
     exit;
 }
