@@ -82,6 +82,7 @@ a:hover { text-decoration: underline; }
     display: grid; place-items: center; font-weight: 700; box-shadow: var(--shadow);
 }
 .logo-text { font-size: 18px; }
+.logo-img { height: 36px; width: auto; display: block; }
 .nav { display: flex; gap: 4px; flex-wrap: wrap; }
 .nav a { color: var(--muted); padding: 8px 12px; border-radius: 10px; font-weight: 500; font-size: 14px; }
 .nav a:hover { background: var(--surface-2); color: var(--fg); text-decoration: none; }

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 188 64" width="188" height="64" role="img" aria-label="DiDn">
+  <defs>
+    <linearGradient id="didn-rib" x1="0.05" y1="0.95" x2="0.95" y2="0.15">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="0.35" stop-color="#3b5bdb"/>
+      <stop offset="0.6" stop-color="#2f6fed"/>
+      <stop offset="0.82" stop-color="#f97316"/>
+      <stop offset="1" stop-color="#fb6a16"/>
+    </linearGradient>
+    <linearGradient id="didn-fold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e3a8a" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#1e3a8a" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- colorful ribbon D -->
+  <path fill="url(#didn-rib)" fill-rule="evenodd" d="
+    M 14 6 L 31 6
+    C 50 6 61 17 61 32
+    C 61 47 50 58 31 58
+    L 14 58 Z
+    M 26 20 L 31 20
+    C 41 20 46 25 46 32
+    C 46 39 41 44 31 44
+    L 26 44 Z" />
+  <!-- ribbon fold crease -->
+  <path fill="url(#didn-fold)" d="M 14 6 L 31 6 L 20 26 L 14 26 Z" />
+  <!-- inner droplet -->
+  <circle cx="20.5" cy="38" r="4.5" fill="#3b5bdb" />
+  <circle cx="20.5" cy="38" r="2" fill="#f97316" />
+  <!-- orange dot -->
+  <circle cx="55" cy="9" r="6.5" fill="#f97316" />
+
+  <!-- wordmark iDn -->
+  <text x="66" y="49" font-family="'Segoe UI', system-ui, Arial, sans-serif" font-weight="800" font-size="48" letter-spacing="-1.5" fill="currentColor">iDn</text>
+</svg>

@@ -49,9 +49,17 @@ declare(strict_types=1);
 <body>
     <header class="site-header">
         <div class="container header-inner">
+            <?php
+                $logoName = is_file(__DIR__ . '/../assets/logo.svg') ? 'logo.svg'
+                    : (is_file(__DIR__ . '/../assets/logo.png') ? 'logo.png' : null);
+            ?>
             <a href="/" class="logo">
-                <span class="logo-badge">D</span>
-                <span class="logo-text">DiDn</span>
+                <?php if ($logoName): ?>
+                    <img src="/assets/<?= $logoName ?>?v=<?= e((string) @filemtime(__DIR__ . '/../assets/' . $logoName)) ?>" alt="DiDn" class="logo-img">
+                <?php else: ?>
+                    <span class="logo-badge">D</span>
+                    <span class="logo-text">DiDn</span>
+                <?php endif; ?>
             </a>
             <?php $cu = current_user(); ?>
             <nav class="nav">
