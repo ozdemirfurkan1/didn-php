@@ -242,6 +242,8 @@ audio { height: 32px; }
 .ref-banner strong { display: block; color: var(--primary); }
 .ref-banner-sub { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
 .ref-banner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.home-refs { margin-top: 8px; }
+.home-refs-title { font-size: 18px; margin: 0 0 12px; }
 .ref-banner-grid .ref-banner { margin-bottom: 0; }
 
 /* Referans kart listesi (phrasal verbs / deyimler) */

@@ -58,3 +58,25 @@
         <?php endif; ?>
     </section>
 <?php endif; ?>
+
+<section class="home-refs">
+    <h2 class="home-refs-title">Hızlı Başvuru</h2>
+    <div class="ref-banner-grid">
+        <a class="ref-banner card" href="/duzensiz-fiiller">
+            <span class="ref-banner-icon">📋</span>
+            <span><strong>Düzensiz Fiiller</strong><span class="ref-banner-sub">go-went-gone, V2/V3 ve Türkçe anlamları.</span></span>
+        </a>
+        <a class="ref-banner card" href="/phrasal-verbs">
+            <span class="ref-banner-icon">🔗</span>
+            <span><strong>Phrasal Verbs</strong><span class="ref-banner-sub">Öbek fiiller, anlam ve örnek cümleler.</span></span>
+        </a>
+        <a class="ref-banner card" href="/deyimler">
+            <span class="ref-banner-icon">💬</span>
+            <span><strong>Deyimler (Idioms)</strong><span class="ref-banner-sub">İngilizce deyimler ve Türkçe karşılıkları.</span></span>
+        </a>
+        <a class="ref-banner card" href="/ingilizce-kelimeler">
+            <span class="ref-banner-icon">⭐</span>
+            <span><strong>Sık Kullanılan Kelimeler</strong><span class="ref-banner-sub">Seviyeye göre temel İngilizce kelimeler.</span></span>
+        </a>
+    </div>
+</section>
