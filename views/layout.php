@@ -11,6 +11,16 @@ declare(strict_types=1);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e($title) ?></title>
     <link rel="stylesheet" href="/assets/style.css?v=<?= e((string) @filemtime(__DIR__ . '/../assets/style.css')) ?>">
+    <?php $gaId = config()['ga_measurement_id'] ?? ''; ?>
+    <?php if ($gaId !== ''): ?>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?= rawurlencode($gaId) ?>"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', <?= json_encode($gaId) ?>);
+        </script>
+    <?php endif; ?>
 </head>
 <body>
     <header class="site-header">

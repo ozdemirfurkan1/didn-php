@@ -20,4 +20,7 @@ return [
 
     // Varsayılan OpenAI metin modeli
     'openai_default_model' => 'gpt-4o-mini',
+
+    // Google Analytics 4 Ölçüm Kimliği (örn. G-XXXXXXXXXX). Boşsa analytics yüklenmez.
+    'ga_measurement_id' => '',
 ];
