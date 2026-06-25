@@ -17,13 +17,26 @@ $studyUrl  = '/kelimelerim/calis' . ($activeFolder !== '' ? '?klasor=' . rawurle
     <p class="page-sub"><?= $total ?> kelime<?= $activeFolder !== '' ? ' · klasör: “' . e($activeFolder) . '”' : '' ?>. Tekrar etmek için tıkla, sözlükte aç.</p>
 </header>
 
-<?php if ($folders): ?>
+<div class="folder-bar">
     <div class="folder-tabs">
         <a class="chip<?= $activeFolder === '' ? ' chip-active' : '' ?>" href="/kelimelerim">Tümü</a>
         <?php foreach ($folders as $f): ?>
             <a class="chip<?= $activeFolder === $f ? ' chip-active' : '' ?>" href="/kelimelerim?klasor=<?= rawurlencode($f) ?>">📁 <?= e($f) ?></a>
         <?php endforeach; ?>
     </div>
+    <form method="post" action="/klasor-olustur" class="new-folder-form">
+        <?= csrf_field() ?>
+        <input type="text" name="name" class="folder-input" placeholder="Yeni klasör adı" maxlength="60" required>
+        <button type="submit" class="folder-save">+ Oluştur</button>
+    </form>
+</div>
+<?php if ($activeFolder !== ''): ?>
+    <form method="post" action="/klasor-sil" class="delete-folder-form"
+          onsubmit="return confirm('“<?= e($activeFolder) ?>” klasörü silinsin mi? Kelimeler silinmez, yalnızca klasörsüz olur.');">
+        <?= csrf_field() ?>
+        <input type="hidden" name="name" value="<?= e($activeFolder) ?>">
+        <button type="submit" class="btn-delete-folder">🗑 “<?= e($activeFolder) ?>” klasörünü sil</button>
+    </form>
 <?php endif; ?>
 
 <?php if (!$words): ?>
@@ -41,10 +54,6 @@ $studyUrl  = '/kelimelerim/calis' . ($activeFolder !== '' ? '?klasor=' . rawurle
         <div class="progress-bar"><span style="width: <?= $pct ?>%"></span></div>
     </section>
 
-    <datalist id="folder-list">
-        <?php foreach ($folders as $f): ?><option value="<?= e($f) ?>"><?php endforeach; ?>
-    </datalist>
-
     <div class="saved-grid">
         <?php foreach ($words as $w): ?>
             <?php
@@ -61,8 +70,14 @@ $studyUrl  = '/kelimelerim/calis' . ($activeFolder !== '' ? '?klasor=' . rawurle
                     <?= csrf_field() ?>
                     <input type="hidden" name="word" value="<?= e($w['word']) ?>">
                     <input type="hidden" name="dir" value="<?= e($w['dir']) ?>">
-                    <input type="text" name="folder" class="folder-input" list="folder-list" value="<?= e($w['folder'] ?? '') ?>" placeholder="📁 klasör" maxlength="60">
-                    <button type="submit" class="folder-save" title="Klasöre kaydet">Kaydet</button>
+                    <label class="folder-pick">📁
+                        <select name="folder" class="folder-select" onchange="this.form.submit()">
+                            <option value="">— klasörsüz —</option>
+                            <?php foreach ($folders as $f): ?>
+                                <option value="<?= e($f) ?>" <?= ($w['folder'] ?? '') === $f ? 'selected' : '' ?>><?= e($f) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </label>
                 </form>
 
                 <div class="saved-foot">

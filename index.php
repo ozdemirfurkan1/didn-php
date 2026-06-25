@@ -280,6 +280,25 @@ if ($uri === '/kelime-durum' && $method === 'POST') {
     redirect('/kelimelerim');
 }
 
+// Yeni klasör oluştur
+if ($uri === '/klasor-olustur' && $method === 'POST') {
+    $u = require_login();
+    if (csrf_check()) {
+        create_folder((int) $u['id'], (string) ($_POST['name'] ?? ''));
+    }
+    $name = trim($_POST['name'] ?? '');
+    redirect($name !== '' ? '/kelimelerim?klasor=' . rawurlencode($name) : '/kelimelerim');
+}
+
+// Klasör sil (kelimeler kalır, klasörsüz olur)
+if ($uri === '/klasor-sil' && $method === 'POST') {
+    $u = require_login();
+    if (csrf_check()) {
+        delete_folder((int) $u['id'], (string) ($_POST['name'] ?? ''));
+    }
+    redirect('/kelimelerim');
+}
+
 // Bir kelimeyi klasöre ata
 if ($uri === '/kelime-klasor' && $method === 'POST') {
     $u    = require_login();

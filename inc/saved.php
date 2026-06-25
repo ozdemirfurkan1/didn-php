@@ -36,7 +36,42 @@ function ensure_saved_word_table(): void
     } catch (Throwable $e) {
         // yoksay
     }
+    // Klasör tablosu (boş klasörler de saklanabilsin).
+    db()->exec(
+        "CREATE TABLE IF NOT EXISTS word_folder (
+            id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            user_id BIGINT NOT NULL,
+            name VARCHAR(60) NOT NULL,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE KEY uniq_user_folder (user_id, name)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+    );
     $done = true;
+}
+
+function create_folder(int $userId, string $name): void
+{
+    ensure_saved_word_table();
+    $name = mb_substr(trim($name), 0, 60, 'UTF-8');
+    if ($name === '') {
+        return;
+    }
+    $stmt = db()->prepare("INSERT IGNORE INTO word_folder (user_id, name) VALUES (:u, :n)");
+    $stmt->execute([':u' => $userId, ':n' => $name]);
+}
+
+function delete_folder(int $userId, string $name): void
+{
+    ensure_saved_word_table();
+    $name = mb_substr(trim($name), 0, 60, 'UTF-8');
+    if ($name === '') {
+        return;
+    }
+    $d = db()->prepare("DELETE FROM word_folder WHERE user_id = :u AND name = :n");
+    $d->execute([':u' => $userId, ':n' => $name]);
+    // Bu klasördeki kelimeleri klasörsüz yap (silme).
+    $u = db()->prepare("UPDATE saved_word SET folder = '' WHERE user_id = :u AND folder = :n");
+    $u->execute([':u' => $userId, ':n' => $name]);
 }
 
 function normalize_word_status(string $s): string
@@ -91,22 +126,31 @@ function list_saved_words(int $userId, ?string $folder = null): array
     return $stmt->fetchAll();
 }
 
-// Kullanıcının kullandığı klasör adları (boş olmayan).
+// Kullanıcının klasör adları (oluşturulanlar + kelimelere atanmış olanlar).
 function list_folders(int $userId): array
 {
     ensure_saved_word_table();
-    $stmt = db()->prepare("SELECT DISTINCT folder FROM saved_word WHERE user_id = :u AND folder <> '' ORDER BY folder");
-    $stmt->execute([':u' => $userId]);
-    return array_map(fn($r) => (string) $r['folder'], $stmt->fetchAll());
+    $stmt = db()->prepare(
+        "SELECT name FROM word_folder WHERE user_id = :u
+         UNION DISTINCT
+         SELECT folder FROM saved_word WHERE user_id = :u2 AND folder <> ''
+         ORDER BY name"
+    );
+    $stmt->execute([':u' => $userId, ':u2' => $userId]);
+    return array_map(fn($r) => (string) $r['name'], $stmt->fetchAll());
 }
 
 // Bir kelimeyi bir klasöre atar (boş = klasörsüz).
 function set_word_folder(int $userId, string $dir, string $word, string $folder): void
 {
     ensure_saved_word_table();
+    $folder = mb_substr(trim($folder), 0, 60, 'UTF-8');
+    if ($folder !== '') {
+        create_folder($userId, $folder); // klasör listesinde de bulunsun
+    }
     $stmt = db()->prepare("UPDATE saved_word SET folder = :fo WHERE user_id = :u AND dir = :d AND word = :w");
     $stmt->execute([
-        ':fo' => mb_substr(trim($folder), 0, 60, 'UTF-8'),
+        ':fo' => $folder,
         ':u'  => $userId,
         ':d'  => $dir,
         ':w'  => mb_substr($word, 0, 190, 'UTF-8'),
