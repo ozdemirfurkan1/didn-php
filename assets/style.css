@@ -85,7 +85,7 @@ a:hover { text-decoration: underline; }
 .logo-img { height: 36px; width: auto; display: block; }
 .nav { display: flex; gap: 4px; flex-wrap: wrap; }
 .nav a { color: var(--muted); padding: 8px 12px; border-radius: 10px; font-weight: 500; font-size: 14px; }
-.nav a:hover { background: var(--surface-2); color: var(--fg); text-decoration: none; }
+.nav a:hover { background: var(--primary-soft); color: var(--primary); text-decoration: none; }
 
 /* Footer */
 .site-footer { border-top: 1px solid var(--border); padding: 24px 0; color: var(--subtle); font-size: 14px; text-align: center; }
@@ -338,7 +338,7 @@ audio { height: 32px; }
 .study-actions { display: flex; gap: 12px; justify-content: center; margin-top: 18px; }
 
 /* Tema (açık/koyu) düğmesi */
-.theme-toggle { border: 1px solid var(--border); background: var(--surface); color: var(--fg); border-radius: 999px; width: 34px; height: 34px; line-height: 1; font-size: 16px; cursor: pointer; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+.theme-toggle { margin-left: auto; border: 1px solid var(--border); background: var(--surface); color: var(--fg); border-radius: 999px; width: 34px; height: 34px; line-height: 1; font-size: 16px; cursor: pointer; padding: 0; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .theme-toggle:hover { border-color: var(--primary); }
 .ref-banner-grid .ref-banner { margin-bottom: 0; }
 
