@@ -251,6 +251,10 @@ audio { height: 32px; }
 .ref-meaning { color: var(--fg); font-size: 14px; }
 .ref-example { margin: 6px 0 0; font-size: 14px; color: var(--muted); font-style: italic; }
 
+/* Sık kullanılan kelimeler hub'ı */
+.level-row { display: flex; align-items: center; gap: 10px; }
+.cw-chips .cw-word { text-decoration: none; }
+
 /* Kelime sayfası fiil çekim kutusu */
 .verb-conj .conj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
 .conj-cell { padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); }

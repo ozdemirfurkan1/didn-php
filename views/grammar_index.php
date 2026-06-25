@@ -25,6 +25,10 @@ $base = $t['base'];
             <span class="ref-banner-icon">💬</span>
             <span><strong>Deyimler (Idioms)</strong><span class="ref-banner-sub">İngilizce deyimler ve Türkçe karşılıkları.</span></span>
         </a>
+        <a class="ref-banner card" href="/ingilizce-kelimeler">
+            <span class="ref-banner-icon">⭐</span>
+            <span><strong>Sık Kullanılan Kelimeler</strong><span class="ref-banner-sub">Seviyeye göre temel İngilizce kelimeler.</span></span>
+        </a>
     </div>
 <?php endif; ?>
 

@@ -1,0 +1,17 @@
+[
+{
+"level":"A1",
+"title":"A1 — Başlangıç (en sık kelimeler)",
+"words":["the","and","you","that","this","what","who","where","when","have","do","go","come","see","make","take","want","like","know","eat","drink","sleep","work","play","read","write","speak","good","bad","big","small","hot","cold","new","old","happy","water","food","house","school","friend","family","day","name","time","man","woman","child","book","love"]
+},
+{
+"level":"A2",
+"title":"A2 — Temel",
+"words":["because","before","after","always","never","sometimes","often","usually","important","different","difficult","easy","beautiful","money","problem","question","answer","country","city","language","weather","holiday","travel","ticket","market","hospital","doctor","teacher","student","job","meeting","weekend","morning","evening","night","week","month","year","remember","forget","understand","explain","decide","agree","help","change","start","finish"]
+},
+{
+"level":"B1",
+"title":"B1 — Orta",
+"words":["although","however","therefore","despite","environment","government","society","culture","experience","knowledge","opportunity","responsibility","development","relationship","suggestion","advantage","disadvantage","advice","behavior","opinion","decision","available","possible","necessary","common","particular","recent","various","achieve","improve","increase","reduce","provide","require","consider","suggest","recognize","describe","prefer","manage","avoid","allow","prevent","affect"]
+}
+]

@@ -236,6 +236,7 @@ function build_pages_sitemap(): string
     $add('/duzensiz-fiiller', null, '0.7');
     $add('/phrasal-verbs', null, '0.7');
     $add('/deyimler', null, '0.7');
+    $add('/ingilizce-kelimeler', null, '0.7');
     $add('/es/grammar', null, '0.6');
     $add('/blog', null, '0.6');
     $add('/rehber', null, '0.6');

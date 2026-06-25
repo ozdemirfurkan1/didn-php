@@ -109,6 +109,16 @@ if ($uri === '/duzensiz-fiiller') {
     exit;
 }
 
+// Seviyeye göre sık kullanılan İngilizce kelimeler (sözlüğe linkli hub)
+if ($uri === '/ingilizce-kelimeler') {
+    render('common_words', [
+        'groups' => load_dataset('common-words.json'),
+        'title'  => 'En Sık Kullanılan İngilizce Kelimeler (Seviyeye Göre) — DiDn',
+        'description' => 'Seviyeye göre (A1, A2, B1) en sık kullanılan İngilizce kelimeler listesi. Her kelimeye tıklayıp Türkçe anlamını, telaffuzunu ve örneklerini gör.',
+    ]);
+    exit;
+}
+
 // Phrasal verbs (öbek fiiller) referans sayfası
 if ($uri === '/phrasal-verbs') {
     render('ref_cards', [
