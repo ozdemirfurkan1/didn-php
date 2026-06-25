@@ -7,10 +7,20 @@ $lbl    = $t['labels'];
 $base   = $t['base'];
 $target = $t['target']; // örnek cümlede öğrenilen dil alanı
 $native = $t['native']; // örnek cümlede çeviri dili alanı
+$speakLang = $target === 'es' ? 'es-ES' : 'en-US'; // seslendirme dili
+
+// Önceki / sonraki ders (sıralı listede konuma göre).
+$allLessons = all_lessons($t['key']);
+$curIdx = null;
+foreach ($allLessons as $i => $l) {
+    if (($l['slug'] ?? null) === $lesson['slug']) { $curIdx = $i; break; }
+}
+$prevLesson = ($curIdx !== null && $curIdx > 0) ? $allLessons[$curIdx - 1] : null;
+$nextLesson = ($curIdx !== null && $curIdx < count($allLessons) - 1) ? $allLessons[$curIdx + 1] : null;
 ?>
 <a href="<?= e($base) ?>" class="back-link"><?= e($lbl['back']) ?></a>
 
-<article class="lesson">
+<article class="lesson" data-speak-lang="<?= e($speakLang) ?>">
     <header class="lesson-head card">
         <div class="lesson-head-top">
             <h1><?= e($lesson['title']) ?></h1>
@@ -73,7 +83,12 @@ $native = $t['native']; // örnek cümlede çeviri dili alanı
                 <ul class="examples">
                     <?php foreach ($section['examples'] as $ex): ?>
                         <li>
-                            <span class="ex-en"><?= e($ex[$target] ?? '') ?></span>
+                            <span class="ex-en">
+                                <?= e($ex[$target] ?? '') ?>
+                                <?php if (!empty($ex[$target])): ?>
+                                    <button type="button" class="speak" data-text="<?= e($ex[$target]) ?>" aria-label="Seslendir" title="Seslendir">🔊</button>
+                                <?php endif; ?>
+                            </span>
                             <span class="ex-tr"><?= e($ex[$native] ?? '') ?></span>
                             <?php if (!empty($ex['note'])): ?>
                                 <span class="ex-note"><?= e($ex['note']) ?></span>
@@ -150,4 +165,58 @@ $native = $t['native']; // örnek cümlede çeviri dili alanı
             </div>
         </section>
     <?php endif; ?>
+
+    <?php if ($prevLesson || $nextLesson): ?>
+        <nav class="lesson-nav">
+            <?php if ($prevLesson): ?>
+                <a class="lesson-nav-link prev" href="<?= e($base) ?>/<?= e($prevLesson['slug']) ?>">
+                    <span class="lesson-nav-dir">← <?= e($lbl['prev']) ?></span>
+                    <strong><?= e($prevLesson['title']) ?></strong>
+                </a>
+            <?php else: ?>
+                <span></span>
+            <?php endif; ?>
+            <?php if ($nextLesson): ?>
+                <a class="lesson-nav-link next" href="<?= e($base) ?>/<?= e($nextLesson['slug']) ?>">
+                    <span class="lesson-nav-dir"><?= e($lbl['next']) ?> →</span>
+                    <strong><?= e($nextLesson['title']) ?></strong>
+                </a>
+            <?php endif; ?>
+        </nav>
+    <?php endif; ?>
 </article>
+
+<script>
+(function () {
+    var nodes = document.querySelectorAll('.speak');
+    var synth = window.speechSynthesis;
+    if (!synth || typeof SpeechSynthesisUtterance === 'undefined') {
+        nodes.forEach(function (b) { b.hidden = true; });
+        return;
+    }
+    var lessonEl = document.querySelector('.lesson');
+    var lang = (lessonEl && lessonEl.dataset.speakLang) || 'en-US';
+
+    function pickVoice() {
+        var voices = synth.getVoices() || [];
+        var base = lang.slice(0, 2);
+        return voices.filter(function (v) { return v.lang === lang; })[0]
+            || voices.filter(function (v) { return (v.lang || '').slice(0, 2) === base; })[0]
+            || null;
+    }
+    // Sesler bazı tarayıcılarda gecikmeli yüklenir; erkenden tetikle.
+    synth.getVoices();
+    if ('onvoiceschanged' in synth) { synth.onvoiceschanged = function () {}; }
+
+    nodes.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var u = new SpeechSynthesisUtterance(btn.dataset.text);
+            u.lang = lang;
+            var v = pickVoice();
+            if (v) { u.voice = v; }
+            synth.cancel();
+            synth.speak(u);
+        });
+    });
+})();
+</script>

@@ -215,6 +215,18 @@ audio { height: 32px; }
 .form-table tbody th { background: var(--primary-soft); color: var(--primary); font-weight: 600; white-space: nowrap; }
 .table-caption { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
 
+/* Örnek cümle seslendirme */
+.speak { border: none; background: transparent; cursor: pointer; font-size: 14px; line-height: 1; padding: 2px 4px; border-radius: 6px; opacity: .55; vertical-align: baseline; transition: opacity .15s, background .15s; }
+.speak:hover { opacity: 1; background: var(--primary-soft); }
+
+/* Önceki / sonraki ders gezinmesi */
+.lesson-nav { display: flex; gap: 12px; justify-content: space-between; margin-top: 8px; }
+.lesson-nav-link { display: flex; flex-direction: column; gap: 2px; flex: 1; max-width: 48%; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); text-decoration: none; color: var(--fg); }
+.lesson-nav-link:hover { border-color: var(--primary); }
+.lesson-nav-link.next { text-align: right; }
+.lesson-nav-dir { font-size: 12px; color: var(--muted); }
+.lesson-nav-link strong { color: var(--primary); }
+
 /* Sonuç ızgarası — çeviriler solda, tanım/eş-zıt sağda */
 .result-grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; align-items: start; }
 .result-grid.single { grid-template-columns: 1fr; }

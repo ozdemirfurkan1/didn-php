@@ -39,6 +39,8 @@ function grammar_tracks(): array
                 'quiz'       => 'Mini test',
                 'quizDone'   => 'Bitti! Soruları yanıtladın.',
                 'formTable'  => 'Çekim tablosu',
+                'prev'       => 'Önceki',
+                'next'       => 'Sonraki',
             ],
         ],
         // İngilizce konuşan → İspanyolca öğrenir (yeni, /es/grammar).
@@ -60,6 +62,8 @@ function grammar_tracks(): array
                 'quiz'       => 'Quick quiz',
                 'quizDone'   => 'Done! You answered all questions.',
                 'formTable'  => 'Forms at a glance',
+                'prev'       => 'Previous',
+                'next'       => 'Next',
             ],
         ],
     ];
