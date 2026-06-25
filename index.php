@@ -247,6 +247,48 @@ if ($uri === '/kelime-sil' && $method === 'POST') {
     redirect($back !== '' && $back[0] === '/' ? $back : '/kelimelerim');
 }
 
+// Flashcard çalışma modu
+if ($uri === '/kelimelerim/calis') {
+    $u     = require_login();
+    $words = list_saved_words((int) $u['id']);
+    $cards = [];
+    foreach ($words as $w) {
+        $cards[] = [
+            'key'     => $w['dir'] . '|' . $w['word'],
+            'word'    => $w['headword'],
+            'meaning' => $w['summary'] ?? '',
+            'url'     => ($w['dir'] === 'en-tr' ? '/en/' : '/tr/') . rawurlencode($w['word']),
+            'learned' => $w['status'] === 'learned',
+        ];
+    }
+    render('study', ['cards' => $cards, 'title' => 'Çalışma — Kelimelerim — DiDn']);
+    exit;
+}
+
+// Tek kelimenin durumunu değiştir (öğreniyorum/öğrendim)
+if ($uri === '/kelime-durum' && $method === 'POST') {
+    $u    = require_login();
+    $dir  = ($_POST['dir'] ?? 'en-tr') === 'tr-en' ? 'tr-en' : 'en-tr';
+    $word = trim($_POST['word'] ?? '');
+    if (csrf_check() && $word !== '') {
+        set_word_status((int) $u['id'], $dir, $word, (string) ($_POST['status'] ?? 'learning'));
+    }
+    redirect('/kelimelerim');
+}
+
+// Çalışma sonunda "bildiklerini" toplu işaretle
+if ($uri === '/kelime-durum-toplu' && $method === 'POST') {
+    $u = require_login();
+    if (csrf_check()) {
+        $raw  = (string) ($_POST['learned'] ?? '');
+        $keys = array_filter(array_map('trim', preg_split('/\r\n|\r|\n/', $raw)));
+        if ($keys) {
+            set_words_status_bulk((int) $u['id'], $keys, 'learned');
+        }
+    }
+    redirect('/kelimelerim');
+}
+
 // --- Admin paneli ---------------------------------------------------------
 
 if (($segments[0] ?? '') === 'admin') {
