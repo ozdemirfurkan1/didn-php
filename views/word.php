@@ -32,6 +32,23 @@ declare(strict_types=1);
         <?php
         $groups     = group_translations_by_type($result['translations']);
         $hasDetails = !empty($result['meanings']) || !empty($result['synonyms']) || !empty($result['antonyms']);
+
+        // İç linkleme: İngilizce kelimenin türlerinden ilgili gramer derslerine köprü.
+        $gramLinks = [];
+        if ($dir === 'en-tr') {
+            $posSet = [];
+            foreach ($result['translations'] as $it) {
+                if (!empty($it['type'])) { $posSet[] = $it['type']; }
+            }
+            foreach (($result['meanings'] ?? []) as $m) {
+                if (!empty($m['pos'])) { $posSet[] = $m['pos']; }
+            }
+            foreach (array_unique($posSet) as $p) {
+                if ($gl = pos_grammar_lesson($p)) {
+                    $gramLinks[$gl['slug']] = $gl['title'];
+                }
+            }
+        }
         ?>
         <div class="result-grid <?= $hasDetails ? '' : 'single' ?>">
             <?php if ($groups): ?>
@@ -104,5 +121,17 @@ declare(strict_types=1);
                 </div>
             <?php endif; ?>
         </div>
+
+        <?php if ($gramLinks): ?>
+            <section class="card grammar-hint">
+                <h2 class="section-title">İlgili gramer konuları</h2>
+                <p class="grammar-hint-desc">Bu kelimenin türüne göre konu anlatımları:</p>
+                <div class="chips">
+                    <?php foreach ($gramLinks as $slug => $gtitle): ?>
+                        <a class="chip" href="/gramer/<?= e($slug) ?>"><?= e($gtitle) ?></a>
+                    <?php endforeach; ?>
+                </div>
+            </section>
+        <?php endif; ?>
     </article>
 <?php endif; ?>

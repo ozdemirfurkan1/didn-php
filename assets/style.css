@@ -227,6 +227,9 @@ audio { height: 32px; }
 .lesson-nav-dir { font-size: 12px; color: var(--muted); }
 .lesson-nav-link strong { color: var(--primary); }
 
+/* Kelime → gramer iç linkleme kutusu */
+.grammar-hint-desc { margin: 0 0 12px; font-size: 14px; color: var(--muted); }
+
 /* Sonuç ızgarası — çeviriler solda, tanım/eş-zıt sağda */
 .result-grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; align-items: start; }
 .result-grid.single { grid-template-columns: 1fr; }

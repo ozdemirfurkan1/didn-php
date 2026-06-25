@@ -104,6 +104,33 @@ function get_lesson(string $slug, string $track = 'en'): ?array
     return null;
 }
 
+// Bir part-of-speech için ilgili İngilizce gramer dersini döndürür (varsa).
+// İç linkleme: kelime sayfasından konu anlatımına köprü kurar.
+function pos_grammar_lesson(string $pos): ?array
+{
+    static $map = [
+        'verb'        => 'present-simple',
+        'noun'        => 'plurals-quantifiers',
+        'adjective'   => 'comparatives-superlatives',
+        'adj'         => 'comparatives-superlatives',
+        'adverb'      => 'comparatives-superlatives',
+        'adv'         => 'comparatives-superlatives',
+        'pronoun'     => 'pronouns',
+        'pron'        => 'pronouns',
+        'preposition' => 'prepositions-time-place',
+        'prep'        => 'prepositions-time-place',
+        'article'     => 'articles',
+        'determiner'  => 'articles',
+        'det'         => 'articles',
+    ];
+    $key = mb_strtolower(trim($pos), 'UTF-8');
+    if (!isset($map[$key])) {
+        return null;
+    }
+    $lesson = get_lesson($map[$key], 'en');
+    return $lesson ? ['slug' => $lesson['slug'], 'title' => $lesson['title']] : null;
+}
+
 // Dersleri kategoriye göre gruplar (ilk görülme sırasıyla).
 function lessons_by_category(string $track = 'en'): array
 {
